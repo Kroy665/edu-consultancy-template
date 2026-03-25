@@ -1,0 +1,188 @@
+'use client'
+
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { enquirySchema, type EnquiryInput } from '@/lib/validations'
+import { Input } from '@/components/ui/Input'
+import { Button } from '@/components/ui/Button'
+
+const courseOptions = [
+  { value: '', label: 'Select a course' },
+  { value: 'nursing', label: 'Nursing' },
+  { value: 'pharmacy', label: 'Pharmacy' },
+  { value: 'btech', label: 'B.Tech / Engineering' },
+  { value: 'diploma', label: 'Diploma' },
+  { value: 'management', label: 'Management (MBA/BBA)' },
+  { value: 'education', label: 'Education (B.Ed/M.Ed)' },
+  { value: 'general-degree', label: 'General Degree' },
+  { value: 'others', label: 'Others' },
+]
+
+interface EnquiryFormProps {
+  source?: string
+  className?: string
+}
+
+export function EnquiryForm({ source = 'home', className = '' }: EnquiryFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<EnquiryInput>({
+    resolver: zodResolver(enquirySchema),
+    defaultValues: {
+      source,
+    },
+  })
+
+  const onSubmit = async (data: EnquiryInput) => {
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...data, source }),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        reset()
+        // Reset success message after 5 seconds
+        setTimeout(() => setSubmitStatus(null), 5000)
+      } else {
+        setSubmitStatus('error')
+        setErrorMessage(result.message || 'Failed to submit enquiry. Please try again.')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      setErrorMessage('Network error. Please check your connection and try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <section className={`bg-brand-light py-16 ${className}`}>
+      <div className="section-container">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-serif text-brand-primary mb-4">
+              Start Your Admission Journey
+            </h2>
+            <p className="text-neutral-600">
+              Fill out the form below and our experts will get in touch with you
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl shadow-sm p-6 md:p-8 space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <Input
+                label="Full Name"
+                type="text"
+                placeholder="Enter your full name"
+                required
+                error={errors.name?.message}
+                {...register('name')}
+              />
+
+              <Input
+                label="Phone Number"
+                type="tel"
+                placeholder="10-digit mobile number"
+                required
+                error={errors.phone?.message}
+                {...register('phone')}
+              />
+            </div>
+
+            <Input
+              label="Email Address"
+              type="email"
+              placeholder="your.email@example.com (optional)"
+              error={errors.email?.message}
+              {...register('email')}
+            />
+
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                Interested Course
+              </label>
+              <select
+                className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all duration-200"
+                {...register('course')}
+              >
+                {courseOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              {errors.course && (
+                <p className="mt-1 text-sm text-red-600">{errors.course.message}</p>
+              )}
+            </div>
+
+            <Input
+              label="Message"
+              multiline
+              rows={4}
+              placeholder="Tell us about your educational background and career goals (optional)"
+              error={errors.message?.message}
+              {...register('message')}
+            />
+
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              fullWidth
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
+            </Button>
+
+            {submitStatus === 'success' && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <p className="text-green-800 text-center font-medium">
+                  Thank you! Your enquiry has been submitted successfully. We'll contact you soon.
+                </p>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <p className="text-red-800 text-center">
+                  {errorMessage || 'Something went wrong. Please try again.'}
+                </p>
+              </div>
+            )}
+
+            <p className="text-xs text-neutral-500 text-center">
+              By submitting this form, you agree to our{' '}
+              <a href="/privacy-policy" className="text-brand-primary hover:underline">
+                Privacy Policy
+              </a>{' '}
+              and{' '}
+              <a href="/terms-and-conditions" className="text-brand-primary hover:underline">
+                Terms & Conditions
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  )
+}

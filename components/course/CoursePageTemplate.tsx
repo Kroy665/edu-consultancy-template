@@ -1,6 +1,7 @@
 import type { Course } from '@/payload/payload-types'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
+import { RichText } from '@/components/RichText'
 import { Clock, CheckCircle, TrendingUp, FileText } from 'lucide-react'
 import Link from 'next/link'
 
@@ -89,9 +90,9 @@ export function CoursePageTemplate({
                         <CheckCircle className="w-5 h-5 text-brand-secondary" />
                         <h4 className="font-semibold text-neutral-900">Eligibility</h4>
                       </div>
-                      <div
-                        className="text-sm text-neutral-700 prose prose-sm max-w-none"
-                        dangerouslySetInnerHTML={{ __html: course.eligibility as string }}
+                      <RichText
+                        content={course.eligibility}
+                        className="text-sm"
                       />
                     </div>
                   )}
@@ -103,9 +104,9 @@ export function CoursePageTemplate({
                         <TrendingUp className="w-5 h-5 text-brand-secondary" />
                         <h4 className="font-semibold text-neutral-900">Career Scope</h4>
                       </div>
-                      <div
-                        className="text-sm text-neutral-700 prose prose-sm max-w-none"
-                        dangerouslySetInnerHTML={{ __html: course.careerScope as string }}
+                      <RichText
+                        content={course.careerScope}
+                        className="text-sm"
                       />
                     </div>
                   )}
@@ -117,9 +118,9 @@ export function CoursePageTemplate({
                         <FileText className="w-5 h-5 text-brand-secondary" />
                         <h4 className="font-semibold text-neutral-900">Admission Process</h4>
                       </div>
-                      <div
-                        className="text-sm text-neutral-700 prose prose-sm max-w-none"
-                        dangerouslySetInnerHTML={{ __html: course.admissionGuidance as string }}
+                      <RichText
+                        content={course.admissionGuidance}
+                        className="text-sm"
                       />
                     </div>
                   )}

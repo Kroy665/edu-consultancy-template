@@ -1,0 +1,19 @@
+
+> nibedita_inst@0.1.0 dev
+> next dev
+
+⚠ Port 3000 is in use by process 37190, using available port 3001 instead.
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.1.3:3001
+- Environments: .env.local
+✓ Ready in 425ms
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          37190
+- Dir:          /Users/koushikroy/personal/Nibedita_inst_project/nibedita_inst
+- Log:          .next/dev/logs/next-development.log
+
+Run kill 37190 to stop it.
+[?25h

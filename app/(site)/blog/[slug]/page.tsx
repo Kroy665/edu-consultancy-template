@@ -5,6 +5,7 @@ import config from '@payload-config'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/Badge'
+import { RichText } from '@/components/RichText'
 import { Calendar, User, ArrowLeft, ArrowRight } from 'lucide-react'
 
 type Props = {
@@ -176,16 +177,11 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
 
             {/* Content */}
-            <div className="prose prose-lg max-w-none">
+            <div className="max-w-none">
               <div className="text-xl text-neutral-700 mb-8 font-semibold">{post.excerpt}</div>
 
               {/* Rich Text Content */}
-              <div
-                className="text-neutral-700 leading-relaxed"
-                dangerouslySetInnerHTML={{
-                  __html: typeof post.content === 'string' ? post.content : JSON.stringify(post.content),
-                }}
-              />
+              <RichText content={post.content} className="text-base" />
             </div>
 
             {/* Share & CTA */}

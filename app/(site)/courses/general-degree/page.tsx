@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Explore BA, BSc, BCom and other general degree courses. Get admission guidance for top colleges.',
 }
 
+export const revalidate = 60;
+
 export default async function GeneralDegreeCoursesPage() {
   const payload = await getPayload({ config })
   const { docs: courses } = await payload.find({

@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Explore law, agriculture, library science and other specialized courses. Get admission guidance for various fields.',
 }
 
+export const revalidate = 60;
+
 export default async function OtherCoursesPage() {
   const payload = await getPayload({ config })
   const { docs: courses } = await payload.find({

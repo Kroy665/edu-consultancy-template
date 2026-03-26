@@ -1,8 +1,14 @@
+import type { Banner, Testimonial, Media } from '@/payload/payload-types'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 import { EnquiryForm } from '@/components/sections/EnquiryForm'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, MapPin, Phone, Mail } from 'lucide-react'
+import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, MapPin, Phone, Mail, Star } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
+
+export const revalidate = 60;
 
 const courseCategories = [
   { name: 'Nursing', slug: 'nursing', icon: Heart, tagline: 'B.Sc, GNM & more' },
@@ -15,26 +21,79 @@ const courseCategories = [
   { name: 'Others', slug: 'others', icon: MoreHorizontal, tagline: 'Law, Agri, Library' },
 ]
 
-export default function HomePage() {
+export default async function HomePage() {
+  const payload = await getPayload({ config })
+
+  // Fetch active banners
+  const { docs: banners } = await payload.find({
+    collection: 'banners',
+    where: {
+      active: {
+        equals: true,
+      },
+    },
+    limit: 1,
+    sort: 'order',
+  })
+
+  const activeBanner = banners[0] as Banner | undefined
+
+  // Fetch featured testimonials
+  const { docs: testimonials } = await payload.find({
+    collection: 'testimonials',
+    where: {
+      featured: {
+        equals: true,
+      },
+    },
+    limit: 4,
+    sort: '-rating',
+  })
+
+  const featuredTestimonials = testimonials as Testimonial[]
+
+  // Get background image URL if exists
+  let backgroundImageUrl = ''
+  if (activeBanner?.backgroundImage) {
+    const mediaId = typeof activeBanner.backgroundImage === 'string'
+      ? activeBanner.backgroundImage
+      : activeBanner.backgroundImage.id
+
+    const media = await payload.findByID({
+      collection: 'media',
+      id: mediaId,
+    }) as Media
+
+    backgroundImageUrl = media?.url || ''
+  }
   return (
     <>
       {/* Hero Banner */}
       <section className="relative min-h-screen flex items-center bg-gradient-to-br from-brand-primary to-brand-primary/80">
-        <div className="absolute inset-0 bg-black/30" />
+        {backgroundImageUrl && (
+          <Image
+            src={backgroundImageUrl}
+            alt="Hero Banner"
+            fill
+            className="object-cover"
+            priority
+          />
+        )}
+        <div className="absolute inset-0 bg-black/50" />
         <div className="section-container relative z-10 text-white py-20">
           <div className="max-w-3xl">
             <Badge variant="secondary" className="mb-6 inline-block">
               Admissions Open 2026
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 leading-tight">
-              Admissions Open 2026 — Secure Your Future
+              {activeBanner?.headline || 'Admissions Open 2026 — Secure Your Future'}
             </h1>
             <p className="text-lg md:text-xl mb-8 text-white/90">
-              Expert guidance for Nursing, Engineering, Pharmacy, MBA & 100+ more courses
+              {activeBanner?.subheadline || 'Expert guidance for Nursing, Engineering, Pharmacy, MBA & 100+ more courses'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button href="/admission" variant="primary" size="lg">
-                Apply Now
+              <Button href={activeBanner?.ctaLink || '/admission'} variant="primary" size="lg">
+                {activeBanner?.ctaText || 'Apply Now'}
               </Button>
               <Button href="/courses" variant="outline" size="lg" className="bg-white/10 border-white text-white hover:bg-white hover:text-brand-primary">
                 Explore Courses
@@ -95,6 +154,43 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      {featuredTestimonials.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="section-container">
+            <h2 className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-primary">
+              What Our Students Say
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredTestimonials.map((testimonial) => (
+                <div
+                  key={testimonial.id}
+                  className="bg-brand-light rounded-xl p-6 border border-neutral-200"
+                >
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating || 5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-brand-secondary text-brand-secondary" />
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <p className="text-neutral-700 text-sm mb-4 italic">
+                    "{testimonial.quote}"
+                  </p>
+
+                  {/* Student Info */}
+                  <div className="pt-4 border-t border-neutral-300">
+                    <p className="font-semibold text-neutral-900">{testimonial.studentName}</p>
+                    <p className="text-xs text-neutral-600">{testimonial.course}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Enquiry Form */}
       <EnquiryForm source="home-page" />

@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Explore B.Ed, D.Ed, M.Ed and other education courses. Get admission guidance for top education colleges.',
 }
 
+export const revalidate = 60;
+
 export default async function EducationCoursesPage() {
   const payload = await getPayload({ config })
   const { docs: courses } = await payload.find({

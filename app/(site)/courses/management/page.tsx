@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Explore MBA, BBA and other management courses. Get admission guidance for top management colleges.',
 }
 
+export const revalidate = 60;
+
 export default async function ManagementCoursesPage() {
   const payload = await getPayload({ config })
   const { docs: courses } = await payload.find({

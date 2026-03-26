@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Explore diploma courses in polytechnic and para-medical fields. Get admission guidance for top diploma colleges.',
 }
 
+export const revalidate = 60;
+
 export default async function DiplomaCoursesPage() {
   const payload = await getPayload({ config })
   const { docs: courses } = await payload.find({

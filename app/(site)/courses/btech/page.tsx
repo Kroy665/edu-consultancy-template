@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Explore B.Tech engineering courses across 8+ specializations. Get admission guidance for top engineering colleges.',
 }
 
+export const revalidate = 60;
+
 export default async function BTechCoursesPage() {
   const payload = await getPayload({ config })
   const { docs: courses } = await payload.find({

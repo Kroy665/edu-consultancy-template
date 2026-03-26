@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Explore pharmacy courses including B.Pharm, D.Pharm, and more. Get expert guidance for admission to top pharmacy colleges.',
 }
 
+export const revalidate = 60;
+
 export default async function PharmacyCoursesPage() {
   const payload = await getPayload({ config })
   const { docs: courses } = await payload.find({

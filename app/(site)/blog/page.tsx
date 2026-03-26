@@ -12,6 +12,8 @@ export const metadata: Metadata = {
     'Read expert articles on career guidance, admission processes, course selection, and educational insights to help you make informed decisions.',
 }
 
+export const revalidate = 60;
+
 export default async function BlogPage() {
   const payload = await getPayload({ config })
 

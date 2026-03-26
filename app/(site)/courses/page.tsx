@@ -13,6 +13,8 @@ export const metadata: Metadata = {
     'Browse through our extensive range of courses including Nursing, Engineering, Pharmacy, Management, and more. Find the perfect course for your career goals.',
 }
 
+export const revalidate = 60;
+
 const categoryIcons: Record<string, any> = {
   nursing: Heart,
   pharmacy: Pill,

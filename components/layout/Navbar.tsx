@@ -70,7 +70,7 @@ export function Navbar() {
                 <ChevronDown className="w-4 h-4" />
               </button>
               {isCoursesDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-neutral-200 py-2">
+                <div className="absolute top-full left-0 w-56 bg-white rounded-lg shadow-lg border border-neutral-200 py-2">
                   {courseCategories.map((category) => (
                     <Link
                       key={category.slug}
@@ -89,6 +89,12 @@ export function Navbar() {
               className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
             >
               Services
+            </Link>
+            <Link
+              href="/student-corner"
+              className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
+            >
+              Student Corner
             </Link>
             <Link
               href="/blog"
@@ -176,6 +182,13 @@ export function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Services
+            </Link>
+            <Link
+              href="/student-corner"
+              className="block py-2 text-neutral-800 hover:text-brand-primary"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Student Corner
             </Link>
             <Link
               href="/blog"

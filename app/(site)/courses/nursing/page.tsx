@@ -5,6 +5,9 @@ import config from '@payload-config'
 import { Heart } from 'lucide-react'
 import { CoursePageTemplate } from '@/components/course/CoursePageTemplate'
 
+// export const dynamic = 'force-dynamic'
+export const revalidate = 60; // Refresh the data at most once every 60 seconds
+
 export const metadata: Metadata = {
   title: 'Nursing Courses',
   description:

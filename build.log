@@ -1,0 +1,57 @@
+
+> nibedita_inst@0.1.0 build
+> npm run generate:importmap && next build
+
+
+> nibedita_inst@0.1.0 generate:importmap
+> node --import tsx/esm node_modules/payload/dist/bin/index.js generate:importmap
+
+▲ Next.js 16.2.1 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 12.7s
+  Running TypeScript ...
+  Finished TypeScript in 4.4s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/26) ...
+  Generating static pages using 7 workers (6/26) 
+  Generating static pages using 7 workers (12/26) 
+  Generating static pages using 7 workers (19/26) 
+✓ Generating static pages using 7 workers (26/26) in 3.7s
+  Finalizing page optimization ...
+
+Route (app)                  Revalidate  Expire
+┌ ○ /                                1m      1y
+├ ○ /_not-found
+├ ○ /about
+├ ƒ /admin/[[...segments]]
+├ ○ /admission
+├ ƒ /api/[...slug]
+├ ƒ /api/enquiry
+├ ○ /blog                            1m      1y
+├ ● /blog/[slug]                     1m      1y
+│ ├ /blog/cagvchavd                  1m      1y
+│ ├ /blog/new-blog-2                 1m      1y
+│ └ /blog/test-blog                  1m      1y
+├ ○ /contact
+├ ○ /courses                         1m      1y
+├ ○ /courses/btech                   1m      1y
+├ ○ /courses/diploma                 1m      1y
+├ ○ /courses/education               1m      1y
+├ ○ /courses/general-degree          1m      1y
+├ ○ /courses/management              1m      1y
+├ ○ /courses/nursing                 1m      1y
+├ ○ /courses/others                  1m      1y
+├ ○ /courses/pharmacy                1m      1y
+├ ○ /disclaimer
+├ ○ /privacy-policy
+├ ○ /services                        1m      1y
+├ ○ /student-corner                  1m      1y
+└ ○ /terms-and-conditions
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import type { BlogPost } from '@/payload/payload-types'
+import type { BlogPost, Media } from '@/payload/payload-types'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Badge } from '@/components/ui/Badge'
 import { Calendar, User, ArrowRight } from 'lucide-react'
 
@@ -55,18 +56,38 @@ export default async function BlogPage() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <article
-                  key={post.id}
-                  className="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-md transition-all duration-200 hover:border-brand-secondary"
-                >
-                  {/* Featured Image Placeholder */}
-                  <div className="aspect-video bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center">
-                    <span className="text-white/20 text-6xl font-serif">N</span>
-                  </div>
+              {posts.map((post) => {
+                // Get featured image URL
+                const featuredImageUrl = post.featuredImage && typeof post.featuredImage === 'object'
+                  ? (post.featuredImage as Media)?.url
+                  : null
 
-                  {/* Content */}
-                  <div className="p-6">
+                return (
+                  <article
+                    key={post.id}
+                    className="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-md transition-all duration-200 hover:border-brand-secondary"
+                  >
+                    {/* Featured Image */}
+                    <Link href={`/blog/${post.slug}`} className="block">
+                      {featuredImageUrl ? (
+                        <div className="relative aspect-video overflow-hidden bg-neutral-100">
+                          <Image
+                            src={featuredImageUrl}
+                            alt={post.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-video bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center">
+                          <span className="text-white/20 text-6xl font-serif">N</span>
+                        </div>
+                      )}
+                    </Link>
+
+                    {/* Content */}
+                    <div className="p-6">
                     {/* Tags */}
                     {post.tags && post.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-3">
@@ -123,9 +144,10 @@ export default async function BlogPage() {
                       Read More
                       <ArrowRight className="w-4 h-4" />
                     </Link>
-                  </div>
-                </article>
-              ))}
+                    </div>
+                  </article>
+                )
+              })}
             </div>
           )}
         </div>

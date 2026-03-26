@@ -4,7 +4,7 @@ import config from '@payload-config'
 import { EnquiryForm } from '@/components/sections/EnquiryForm'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, MapPin, Phone, Mail, Star } from 'lucide-react'
+import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, MapPin, Phone, Mail, Star, User } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -73,8 +73,9 @@ export default async function HomePage() {
         {backgroundImageUrl && (
           <Image
             src={backgroundImageUrl}
-            alt="Hero Banner"
+            alt="Hero Banner Background"
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />
@@ -163,30 +164,64 @@ export default async function HomePage() {
               What Our Students Say
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredTestimonials.map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="bg-brand-light rounded-xl p-6 border border-neutral-200"
-                >
-                  {/* Rating */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-brand-secondary text-brand-secondary" />
-                    ))}
-                  </div>
+              {featuredTestimonials.map((testimonial) => {
+                // Get photo URL if exists
+                const photoUrl = testimonial.photo && typeof testimonial.photo === 'object'
+                  ? (testimonial.photo as Media)?.url
+                  : null
 
-                  {/* Quote */}
-                  <p className="text-neutral-700 text-sm mb-4 italic">
-                    "{testimonial.quote}"
-                  </p>
+                // Get initials for fallback
+                const initials = testimonial.studentName
+                  .split(' ')
+                  .map(n => n[0])
+                  .join('')
+                  .toUpperCase()
+                  .slice(0, 2)
 
-                  {/* Student Info */}
-                  <div className="pt-4 border-t border-neutral-300">
-                    <p className="font-semibold text-neutral-900">{testimonial.studentName}</p>
-                    <p className="text-xs text-neutral-600">{testimonial.course}</p>
+                return (
+                  <div
+                    key={testimonial.id}
+                    className="bg-brand-light rounded-xl p-6 border border-neutral-200"
+                  >
+                    {/* Student Photo/Avatar */}
+                    <div className="flex items-center gap-3 mb-4">
+                      {photoUrl ? (
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                          <Image
+                            src={photoUrl}
+                            alt={testimonial.studentName}
+                            fill
+                            sizes="48px"
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-brand-secondary/10 flex items-center justify-center flex-shrink-0">
+                          <span className="text-brand-secondary font-semibold text-sm">
+                            {initials}
+                          </span>
+                        </div>
+                      )}
+                      <div>
+                        <p className="font-semibold text-neutral-900">{testimonial.studentName}</p>
+                        <p className="text-xs text-neutral-600">{testimonial.course}</p>
+                      </div>
+                    </div>
+
+                    {/* Rating */}
+                    <div className="flex gap-1 mb-3">
+                      {[...Array(testimonial.rating || 5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-brand-secondary text-brand-secondary" />
+                      ))}
+                    </div>
+
+                    {/* Quote */}
+                    <p className="text-neutral-700 text-sm italic">
+                      "{testimonial.quote}"
+                    </p>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </section>

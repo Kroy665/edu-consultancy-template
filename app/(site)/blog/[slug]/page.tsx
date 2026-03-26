@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import type { BlogPost } from '@/payload/payload-types'
+import type { BlogPost, Media } from '@/payload/payload-types'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/Badge'
 import { RichText } from '@/components/RichText'
@@ -84,6 +85,11 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) {
     notFound()
   }
+
+  // Get featured image URL
+  const featuredImageUrl = post.featuredImage && typeof post.featuredImage === 'object'
+    ? (post.featuredImage as Media)?.url
+    : null
 
   // Fetch related posts (same tags)
   let relatedPosts: BlogPost[] = []
@@ -173,10 +179,23 @@ export default async function BlogPostPage({ params }: Props) {
               )}
             </div>
 
-            {/* Featured Image Placeholder */}
-            <div className="aspect-video bg-gradient-to-br from-brand-primary to-brand-secondary rounded-xl flex items-center justify-center mb-12">
-              <span className="text-white/20 text-9xl font-serif">N</span>
-            </div>
+            {/* Featured Image */}
+            {featuredImageUrl ? (
+              <div className="relative aspect-video overflow-hidden rounded-xl mb-12 bg-neutral-100">
+                <Image
+                  src={featuredImageUrl}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 720px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="aspect-video bg-gradient-to-br from-brand-primary to-brand-secondary rounded-xl flex items-center justify-center mb-12">
+                <span className="text-white/20 text-9xl font-serif">N</span>
+              </div>
+            )}
 
             {/* Content */}
             <div className="max-w-none">
@@ -215,29 +234,47 @@ export default async function BlogPostPage({ params }: Props) {
               Related Articles
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {relatedPosts.map((relatedPost) => (
-                <Link
-                  key={relatedPost.id}
-                  href={`/blog/${relatedPost.slug}`}
-                  className="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-md transition-all hover:border-brand-secondary"
-                >
-                  <div className="aspect-video bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 flex items-center justify-center">
-                    <span className="text-brand-primary/20 text-4xl font-serif">N</span>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-semibold text-neutral-900 mb-2 line-clamp-2">
-                      {relatedPost.title}
-                    </h3>
-                    <p className="text-sm text-neutral-600 line-clamp-2 mb-3">
-                      {relatedPost.excerpt}
-                    </p>
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-brand-secondary">
-                      Read More
-                      <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </Link>
-              ))}
+              {relatedPosts.map((relatedPost) => {
+                const relatedImageUrl = relatedPost.featuredImage && typeof relatedPost.featuredImage === 'object'
+                  ? (relatedPost.featuredImage as Media)?.url
+                  : null
+
+                return (
+                  <Link
+                    key={relatedPost.id}
+                    href={`/blog/${relatedPost.slug}`}
+                    className="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-md transition-all hover:border-brand-secondary"
+                  >
+                    {relatedImageUrl ? (
+                      <div className="relative aspect-video overflow-hidden bg-neutral-100">
+                        <Image
+                          src={relatedImageUrl}
+                          alt={relatedPost.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    ) : (
+                      <div className="aspect-video bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 flex items-center justify-center">
+                        <span className="text-brand-primary/20 text-4xl font-serif">N</span>
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <h3 className="font-semibold text-neutral-900 mb-2 line-clamp-2">
+                        {relatedPost.title}
+                      </h3>
+                      <p className="text-sm text-neutral-600 line-clamp-2 mb-3">
+                        {relatedPost.excerpt}
+                      </p>
+                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-brand-secondary">
+                        Read More
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </section>

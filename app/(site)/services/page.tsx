@@ -5,12 +5,9 @@ import { Button } from '@/components/ui/Button'
 import { RichText } from '@/components/RichText'
 import {
   Users,
-  FileCheck,
   Target,
   Award,
-  CreditCard,
   FileText,
-  TrendingUp,
   ChevronDown,
   UserCheck,
   GraduationCap,

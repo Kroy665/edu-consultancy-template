@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: '**',
       },
       {
+        protocol: 'https',
+        hostname: 'nibedita.kroy.dev',
+        pathname: '/api/media/file/**',
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
         port: '3000',
@@ -24,7 +29,8 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    unoptimized: process.env.NODE_ENV === 'development', // Disable optimization in dev to avoid localhost issues
+    // Unoptimized for self-hosted Payload media
+    unoptimized: true,
     minimumCacheTTL: 60,
     formats: ['image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

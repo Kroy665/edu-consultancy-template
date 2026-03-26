@@ -1,6 +1,7 @@
 import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -19,22 +20,8 @@ import { Services } from './collections/Services'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-// Conditionally import Vercel Blob Storage only on Vercel
+// Only enable Vercel Blob Storage on Vercel production
 const isVercel = process.env.VERCEL === '1'
-const plugins = []
-
-if (isVercel) {
-  const { vercelBlobStorage } = await import('@payloadcms/storage-vercel-blob')
-  plugins.push(
-    vercelBlobStorage({
-      enabled: true,
-      collections: {
-        media: true,
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
-    })
-  )
-}
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -56,7 +43,15 @@ export default buildConfig({
       // favicon: '/favicon.ico',
     },
   },
-  plugins,
+  plugins: [
+    vercelBlobStorage({
+      enabled: isVercel, // Only enable on Vercel
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    }),
+  ],
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

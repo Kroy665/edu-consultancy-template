@@ -1,7 +1,6 @@
 import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -20,12 +19,33 @@ import { Services } from './collections/Services'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Conditionally import Vercel Blob Storage only on Vercel
+const isVercel = process.env.VERCEL === '1'
+const plugins = []
+
+if (isVercel) {
+  const { vercelBlobStorage } = await import('@payloadcms/storage-vercel-blob')
+  plugins.push(
+    vercelBlobStorage({
+      enabled: true,
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    })
+  )
+}
+
 export default buildConfig({
   editor: lexicalEditor(),
   collections: [Users, Courses, BlogPosts, Banners, Testimonials, Enquiries, Media, FAQs, AdmissionUpdates, Services],
   secret: process.env.PAYLOAD_SECRET!,
   db: mongooseAdapter({
     url: process.env.MONGODB_URI!,
+    connectOptions: {
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+    },
   }),
   sharp,
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
@@ -36,15 +56,7 @@ export default buildConfig({
       // favicon: '/favicon.ico',
     },
   },
-  plugins: [
-    vercelBlobStorage({
-      enabled: true, // Enable Vercel Blob storage
-      collections: {
-        media: true, // Enable for 'media' collection
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
-    }),
-  ],
+  plugins,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

@@ -1,6 +1,7 @@
 import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -35,6 +36,15 @@ export default buildConfig({
       // favicon: '/favicon.ico',
     },
   },
+  plugins: [
+    vercelBlobStorage({
+      enabled: true, // Enable Vercel Blob storage
+      collections: {
+        media: true, // Enable for 'media' collection
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    }),
+  ],
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

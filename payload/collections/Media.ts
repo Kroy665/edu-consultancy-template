@@ -1,9 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+const isProduction = process.env.VERCEL === '1'
+
 export const Media: CollectionConfig = {
   slug: 'media',
   upload: {
-    staticDir: 'media',
+    ...(isProduction ? { disableLocalStorage: true } : { staticDir: 'media' }),
     imageSizes: [
       {
         name: 'thumbnail',

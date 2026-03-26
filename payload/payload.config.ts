@@ -14,13 +14,14 @@ import { Enquiries } from './collections/Enquiries'
 import { Media } from './collections/Media'
 import { FAQs } from './collections/FAQs'
 import { AdmissionUpdates } from './collections/AdmissionUpdates'
+import { Services } from './collections/Services'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   editor: lexicalEditor(),
-  collections: [Users, Courses, BlogPosts, Banners, Testimonials, Enquiries, Media, FAQs, AdmissionUpdates],
+  collections: [Users, Courses, BlogPosts, Banners, Testimonials, Enquiries, Media, FAQs, AdmissionUpdates, Services],
   secret: process.env.PAYLOAD_SECRET!,
   db: mongooseAdapter({
     url: process.env.MONGODB_URI!,

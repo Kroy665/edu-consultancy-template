@@ -21,7 +21,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 // Only use Vercel Blob Storage when deployed to Vercel (production)
-const isProduction = process.env.VERCEL === '1'
+// const isProduction = process.env.VERCEL === '1'
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -43,16 +43,14 @@ export default buildConfig({
       // favicon: '/favicon.ico',
     },
   },
-  plugins: isProduction
-    ? [
-        vercelBlobStorage({
-          collections: {
-            media: true,
-          },
-          token: process.env.BLOB_READ_WRITE_TOKEN!,
-        }),
-      ]
-    : [],
+  plugins: [
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

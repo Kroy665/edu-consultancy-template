@@ -9,7 +9,7 @@
     "lint": "eslint",
     "payload": "payload",
     "generate:types": "node --import tsx/esm node_modules/payload/dist/bin/index.js generate:types",
-    "generate:importmap": "node --import tsx/esm node_modules/payload/dist/bin/index.js generate:importmap"
+    "generate:importmap": "node -r dotenv/config --import tsx/esm node_modules/payload/dist/bin/index.js generate:importmap dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -36,6 +36,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.3.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",

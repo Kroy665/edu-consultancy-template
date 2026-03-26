@@ -1,11 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
-const isProduction = process.env.VERCEL === '1'
-
 export const Media: CollectionConfig = {
   slug: 'media',
   upload: {
-    ...(isProduction ? { disableLocalStorage: true } : { staticDir: 'media' }),
+    // Always use Vercel Blob Storage (no local storage)
+    disableLocalStorage: true,
     imageSizes: [
       {
         name: 'thumbnail',

@@ -9,7 +9,7 @@
     "lint": "eslint",
     "payload": "payload",
     "generate:types": "node --import tsx/esm node_modules/payload/dist/bin/index.js generate:types",
-    "generate:importmap": "node -r dotenv/config --import tsx/esm node_modules/payload/dist/bin/index.js generate:importmap dotenv_config_path=.env.local"
+    "generate:importmap": "node -r dotenv/config --import tsx/esm node_modules/payload/dist/bin/index.js generate:importmap dotenv_config_path=.env.local && node scripts/fix-importmap.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

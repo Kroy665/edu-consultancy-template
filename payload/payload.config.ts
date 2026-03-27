@@ -16,6 +16,7 @@ import { Media } from './collections/Media'
 import { FAQs } from './collections/FAQs'
 import { AdmissionUpdates } from './collections/AdmissionUpdates'
 import { Services } from './collections/Services'
+import { SiteSettings } from './collections/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,7 +26,7 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   editor: lexicalEditor(),
-  collections: [Users, Courses, BlogPosts, Banners, Testimonials, Enquiries, Media, FAQs, AdmissionUpdates, Services],
+  collections: [Users, Courses, BlogPosts, Banners, Testimonials, Enquiries, Media, FAQs, AdmissionUpdates, Services, SiteSettings],
   secret: process.env.PAYLOAD_SECRET!,
   db: mongooseAdapter({
     url: process.env.MONGODB_URI!,

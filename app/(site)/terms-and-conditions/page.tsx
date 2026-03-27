@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
+import { RichText } from '@/components/RichText'
 
 export const metadata: Metadata = {
   title: 'Terms and Conditions',
@@ -7,7 +9,13 @@ export const metadata: Metadata = {
     'Terms and Conditions for using Nibedita Institute & Management services. Please read carefully before using our services.',
 }
 
-export default function TermsAndConditionsPage() {
+export default async function TermsAndConditionsPage() {
+  const siteSettings = await getSiteSettings()
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
+  // Check if CMS has custom terms content
+  const hasCustomContent = siteSettings?.legalPages?.termsAndConditions
+
   return (
     <>
       <section className="bg-brand-light py-8 border-b border-neutral-200">
@@ -27,6 +35,12 @@ export default function TermsAndConditionsPage() {
       <section className="py-16 bg-white">
         <div className="section-container">
           <div className="max-w-3xl mx-auto prose prose-neutral">
+            {hasCustomContent ? (
+              // Render CMS content if available
+              <RichText content={siteSettings?.legalPages?.termsAndConditions} />
+            ) : (
+              // Default content as fallback
+              <>
             <h2>Agreement to Terms</h2>
             <p>
               By accessing or using the services of Nibedita Institute & Management ("Company," "we,"
@@ -171,6 +185,8 @@ export default function TermsAndConditionsPage() {
                 Bengal — 735210
               </li>
             </ul>
+            </>
+            )}
           </div>
         </div>
       </section>

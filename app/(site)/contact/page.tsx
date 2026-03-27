@@ -1,14 +1,24 @@
 import type { Metadata } from 'next'
 import { EnquiryForm } from '@/components/sections/EnquiryForm'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'Contact Us',
-  description:
-    'Get in touch with Nibedita Institute & Management for admission guidance, career counselling, and course information. Visit us in Dhupguri, West Bengal.',
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings()
+  const siteName = siteSettings?.siteName || DEFAULT_SITE_SETTINGS.siteName
+
+  return {
+    title: 'Contact Us',
+    description: `Get in touch with ${siteName} for admission guidance, career counselling, and course information. Visit us in Dhupguri, West Bengal.`,
+  }
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const siteSettings = await getSiteSettings()
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
+  // Parse address lines
+  const addressLines = settings.contactInfo?.address?.split('\n') || []
   return (
     <>
       {/* Hero Section */}
@@ -46,11 +56,12 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-neutral-900 mb-2">Office Address</h3>
                   <p className="text-neutral-600 text-sm">
-                    Nibedita Institute & Management
-                    <br />
-                    Dhupguri, Jalpaiguri
-                    <br />
-                    West Bengal — 735210
+                    {addressLines.map((line, idx) => (
+                      <span key={idx}>
+                        {line}
+                        {idx < addressLines.length - 1 && <br />}
+                      </span>
+                    ))}
                     <br />
                     India
                   </p>
@@ -65,10 +76,22 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-neutral-900 mb-2">Phone & WhatsApp</h3>
                   <p className="text-neutral-600 text-sm">
-                    <a href="tel:+919999999999" className="hover:text-brand-secondary">
-                      +91 99999 99999
-                    </a>
-                    <br />
+                    {settings.contactInfo?.phone && (
+                      <>
+                        <a href={`tel:${settings.contactInfo.phone}`} className="hover:text-brand-secondary">
+                          {settings.contactInfo.phone}
+                        </a>
+                        <br />
+                      </>
+                    )}
+                    {settings.contactInfo?.alternatePhone && (
+                      <>
+                        <a href={`tel:${settings.contactInfo.alternatePhone}`} className="hover:text-brand-secondary">
+                          {settings.contactInfo.alternatePhone}
+                        </a>
+                        <br />
+                      </>
+                    )}
                     <span className="text-xs text-neutral-500">
                       (Available for calls & WhatsApp)
                     </span>
@@ -84,13 +107,19 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-neutral-900 mb-2">Email Address</h3>
                   <p className="text-neutral-600 text-sm">
-                    <a href="mailto:info@nibedita.in" className="hover:text-brand-secondary">
-                      info@nibedita.in
-                    </a>
-                    <br />
-                    <a href="mailto:director@nibedita.in" className="hover:text-brand-secondary">
-                      director@nibedita.in
-                    </a>
+                    {settings.contactInfo?.email && (
+                      <>
+                        <a href={`mailto:${settings.contactInfo.email}`} className="hover:text-brand-secondary">
+                          {settings.contactInfo.email}
+                        </a>
+                        <br />
+                      </>
+                    )}
+                    {settings.contactInfo?.secondaryEmail && (
+                      <a href={`mailto:${settings.contactInfo.secondaryEmail}`} className="hover:text-brand-secondary">
+                        {settings.contactInfo.secondaryEmail}
+                      </a>
+                    )}
                   </p>
                 </div>
               </div>
@@ -103,9 +132,9 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-neutral-900 mb-2">Office Hours</h3>
                   <p className="text-neutral-600 text-sm">
-                    Monday - Saturday: 9:00 AM - 6:00 PM
+                    {settings.businessHours?.workingDays}: {settings.businessHours?.workingHours}
                     <br />
-                    Sunday: Closed
+                    {settings.businessHours?.closedDays}
                   </p>
                 </div>
               </div>
@@ -126,18 +155,20 @@ export default function ContactPage() {
       </section>
 
       {/* Google Map */}
-      <section className="h-96 md:h-[500px]">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114614.8!2d89.0102!3d26.5854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e444e10c7c1e89%3A0x81321e9e51d0e4db!2sDhupguri%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1234567890"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Nibedita Institute Location - Dhupguri, West Bengal"
-        />
-      </section>
+      {settings.location?.googleMapsEmbedUrl && (
+        <section className="h-96 md:h-[500px]">
+          <iframe
+            src={settings.location.googleMapsEmbedUrl}
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title={`${settings.siteName} Location`}
+          />
+        </section>
+      )}
     </>
   )
 }

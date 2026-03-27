@@ -3,44 +3,50 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 import '@/app/globals.css'
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in'),
-  title: {
-    default: 'Nibedita Institute & Management | Educational Consultancy Dhupguri',
-    template: '%s | Nibedita Institute',
-  },
-  description:
-    'Leading educational consultancy in Dhupguri offering admission guidance for Nursing, Engineering, Pharmacy, MBA and more. Expert career counselling for students in West Bengal.',
-  keywords: [
-    'educational consultancy Dhupguri',
-    'admission guidance West Bengal',
-    'nursing admission',
-    'engineering admission',
-    'career counselling Jalpaiguri',
-    'Nibedita Institute',
-  ],
-  openGraph: {
-    type: 'website',
-    locale: 'en_IN',
-    url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in',
-    siteName: 'Nibedita Institute & Management',
-    title: 'Nibedita Institute & Management | Educational Consultancy Dhupguri',
-    description:
-      'Leading educational consultancy in Dhupguri offering admission guidance for Nursing, Engineering, Pharmacy, MBA and more.',
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings()
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
+  const siteName = settings.siteName
+  const description = siteSettings?.seo?.metaDescription || DEFAULT_SITE_SETTINGS.seo.metaDescription
+  const keywords = siteSettings?.seo?.keywords?.map(k => k.keyword).filter((k): k is string => !!k) ||
+    DEFAULT_SITE_SETTINGS.seo.keywords.map(k => k.keyword)
+
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in'),
+    title: {
+      default: `${siteName} | Educational Consultancy Dhupguri`,
+      template: `%s | ${siteName}`,
+    },
+    description,
+    keywords,
+    openGraph: {
+      type: 'website',
+      locale: 'en_IN',
+      url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in',
+      siteName,
+      title: `${siteName} | Educational Consultancy Dhupguri`,
+      description,
+    },
+  }
 }
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Fetch site settings from CMS
+  const siteSettings = await getSiteSettings()
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
-    name: 'Nibedita Institute and Management',
+    name: siteSettings?.siteName || 'Nibedita Institute and Management',
     description: 'Educational consultancy offering admission guidance in Dhupguri, West Bengal',
     url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in',
     address: {
@@ -51,8 +57,8 @@ export default function SiteLayout({
       postalCode: '735210',
       addressCountry: 'IN',
     },
-    telephone: `+${process.env.NEXT_PUBLIC_PHONE}`,
-    email: 'info@nibedita.in',
+    telephone: siteSettings?.contactInfo?.phone || '+91 99999 99999',
+    email: siteSettings?.contactInfo?.email || 'info@nibedita.in',
   }
 
   return (
@@ -64,12 +70,16 @@ export default function SiteLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <Navbar />
+        <Navbar siteName={settings.siteName} siteLogo={siteSettings?.siteLogo} />
         <main className="min-h-screen">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        {process.env.NEXT_PUBLIC_GA_ID && process.env.NEXT_PUBLIC_GA_ID !== 'G-XXXXXXXXXX' && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <Footer siteSettings={siteSettings} />
+        <WhatsAppButton
+          whatsappNumber={siteSettings?.contactInfo?.whatsapp}
+          defaultMessage={siteSettings?.contactInfo?.whatsappMessage}
+        />
+        {(siteSettings?.seo?.googleAnalyticsId || process.env.NEXT_PUBLIC_GA_ID) &&
+         (siteSettings?.seo?.googleAnalyticsId !== 'G-XXXXXXXXXX' && process.env.NEXT_PUBLIC_GA_ID !== 'G-XXXXXXXXXX') && (
+          <GoogleAnalytics gaId={siteSettings?.seo?.googleAnalyticsId || process.env.NEXT_PUBLIC_GA_ID!} />
         )}
       </body>
     </html>

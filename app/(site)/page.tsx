@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, MapPin, Phone, Mail, Star, User } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
 export const revalidate = 60;
 
@@ -23,6 +24,13 @@ const courseCategories = [
 
 export default async function HomePage() {
   const payload = await getPayload({ config })
+
+  // Fetch site settings
+  const siteSettings = await getSiteSettings()
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
+  // Parse address lines
+  const addressLines = settings.contactInfo?.address?.split('\n') || []
 
   // Fetch active banners
   const { docs: banners } = await payload.find({
@@ -243,9 +251,12 @@ export default async function HomePage() {
               <div>
                 <h3 className="font-semibold mb-1">Visit Us</h3>
                 <p className="text-neutral-400 text-sm">
-                  Nibedita Institute & Management<br />
-                  Dhupguri, Jalpaiguri<br />
-                  West Bengal — 735210
+                  {addressLines.map((line, idx) => (
+                    <span key={idx}>
+                      {line}
+                      {idx < addressLines.length - 1 && <br />}
+                    </span>
+                  ))}
                 </p>
               </div>
             </div>
@@ -253,16 +264,24 @@ export default async function HomePage() {
               <Phone className="w-6 h-6 text-brand-secondary flex-shrink-0" />
               <div>
                 <h3 className="font-semibold mb-1">Call Us</h3>
-                <p className="text-neutral-400 text-sm">+91 99999 99999</p>
-                <p className="text-neutral-400 text-sm">WhatsApp Available</p>
+                {settings.contactInfo?.phone && (
+                  <p className="text-neutral-400 text-sm">{settings.contactInfo.phone}</p>
+                )}
+                {settings.contactInfo?.whatsapp && (
+                  <p className="text-neutral-400 text-sm">WhatsApp Available</p>
+                )}
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
               <Mail className="w-6 h-6 text-brand-secondary flex-shrink-0" />
               <div>
                 <h3 className="font-semibold mb-1">Email Us</h3>
-                <p className="text-neutral-400 text-sm">info@nibedita.in</p>
-                <p className="text-neutral-400 text-sm">director@nibedita.in</p>
+                {settings.contactInfo?.email && (
+                  <p className="text-neutral-400 text-sm">{settings.contactInfo.email}</p>
+                )}
+                {settings.contactInfo?.secondaryEmail && (
+                  <p className="text-neutral-400 text-sm">{settings.contactInfo.secondaryEmail}</p>
+                )}
               </div>
             </div>
           </div>
@@ -270,18 +289,20 @@ export default async function HomePage() {
       </section>
 
       {/* Google Map */}
-      <section className="h-96">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114614.8!2d89.0102!3d26.5854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e444e10c7c1e89%3A0x81321e9e51d0e4db!2sDhupguri%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1234567890"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Nibedita Institute Location"
-        />
-      </section>
+      {settings.location?.googleMapsEmbedUrl && (
+        <section className="h-96">
+          <iframe
+            src={settings.location.googleMapsEmbedUrl}
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title={`${settings.siteName} Location`}
+          />
+        </section>
+      )}
     </>
   )
 }

@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/Badge'
 import { RichText } from '@/components/RichText'
 import { Calendar, User, ArrowLeft, ArrowRight } from 'lucide-react'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
 type Props = {
   params: Promise<{
@@ -38,6 +39,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const payload = await getPayload({ config })
+  const siteSettings = await getSiteSettings()
+  const siteName = siteSettings?.siteName || DEFAULT_SITE_SETTINGS.siteName
 
   const { docs: posts } = await payload.find({
     collection: 'blog-posts',
@@ -59,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.excerpt || `Read this article from ${siteName}`,
   }
 }
 

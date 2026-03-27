@@ -6,11 +6,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/Badge'
 import { Calendar, User, ArrowRight } from 'lucide-react'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'Blog - Career Guidance & Admission Tips',
-  description:
-    'Read expert articles on career guidance, admission processes, course selection, and educational insights to help you make informed decisions.',
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings()
+  const siteName = siteSettings?.siteName || DEFAULT_SITE_SETTINGS.siteName
+
+  return {
+    title: 'Blog - Career Guidance & Admission Tips',
+    description: `Read expert articles from ${siteName} on career guidance, admission processes, course selection, and educational insights to help you make informed decisions.`,
+  }
 }
 
 export const revalidate = 60;

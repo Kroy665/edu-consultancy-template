@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
+import { RichText } from '@/components/RichText'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -7,7 +9,16 @@ export const metadata: Metadata = {
     'Privacy Policy for Nibedita Institute & Management. Learn how we collect, use, and protect your personal information.',
 }
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const siteSettings = await getSiteSettings()
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
+  // Parse address lines for contact section
+  const addressLines = settings.contactInfo?.address?.split('\n') || []
+
+  // Check if CMS has custom privacy policy content
+  const hasCustomContent = siteSettings?.legalPages?.privacyPolicy
+
   return (
     <>
       <section className="bg-brand-light py-8 border-b border-neutral-200">
@@ -27,6 +38,12 @@ export default function PrivacyPolicyPage() {
       <section className="py-16 bg-white">
         <div className="section-container">
           <div className="max-w-3xl mx-auto prose prose-neutral">
+            {hasCustomContent ? (
+              // Render CMS content if available
+              <RichText content={siteSettings?.legalPages?.privacyPolicy} />
+            ) : (
+              // Default content as fallback
+              <>
             <h2>Introduction</h2>
             <p>
               Welcome to Nibedita Institute & Management ("we," "our," or "us"). We are committed to
@@ -141,20 +158,27 @@ export default function PrivacyPolicyPage() {
             <h2>Contact Us</h2>
             <p>If you have questions about this Privacy Policy, please contact us:</p>
             <ul>
-              <li>
-                <strong>Email:</strong>{' '}
-                <a href="mailto:info@nibedita.in" className="text-brand-secondary">
-                  info@nibedita.in
-                </a>
-              </li>
-              <li>
-                <strong>Phone:</strong> +91 99999 99999
-              </li>
-              <li>
-                <strong>Address:</strong> Nibedita Institute & Management, Dhupguri, Jalpaiguri, West
-                Bengal — 735210
-              </li>
+              {settings.contactInfo?.email && (
+                <li>
+                  <strong>Email:</strong>{' '}
+                  <a href={`mailto:${settings.contactInfo.email}`} className="text-brand-secondary">
+                    {settings.contactInfo.email}
+                  </a>
+                </li>
+              )}
+              {settings.contactInfo?.phone && (
+                <li>
+                  <strong>Phone:</strong> {settings.contactInfo.phone}
+                </li>
+              )}
+              {addressLines.length > 0 && (
+                <li>
+                  <strong>Address:</strong> {addressLines.join(', ')}
+                </li>
+              )}
             </ul>
+            </>
+            )}
           </div>
         </div>
       </section>

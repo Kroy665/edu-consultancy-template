@@ -13,6 +13,7 @@ export interface Config {
     testimonials: Testimonial
     enquiries: Enquiry
     media: Media
+    'site-settings': SiteSetting
   }
 }
 
@@ -119,4 +120,57 @@ export interface Media {
   filesize?: number
   width?: number
   height?: number
+}
+
+export interface SiteSetting {
+  id: string
+  siteName: string
+  siteTagline?: string
+  siteLogo?: string | Media
+  siteFavicon?: string | Media
+  contactInfo?: {
+    address: string
+    phone: string
+    alternatePhone?: string
+    whatsapp: string
+    whatsappMessage?: string
+    email: string
+    secondaryEmail?: string
+  }
+  socialMedia?: {
+    facebook?: string
+    instagram?: string
+    youtube?: string
+    twitter?: string
+    linkedin?: string
+  }
+  location?: {
+    googleMapsEmbedUrl: string
+    latitude?: number
+    longitude?: number
+  }
+  legalPages?: {
+    privacyPolicy?: any
+    termsAndConditions?: any
+    disclaimer?: any
+  }
+  businessHours?: {
+    workingDays?: string
+    workingHours?: string
+    closedDays?: string
+  }
+  seo?: {
+    metaDescription?: string
+    keywords?: {
+      keyword?: string
+      id?: string
+    }[]
+    googleAnalyticsId?: string
+  }
+  footer?: {
+    copyrightText?: string
+    showLegalLinks?: boolean
+  }
+  updatedAt: string
+  createdAt: string
 }

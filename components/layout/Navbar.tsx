@@ -1,9 +1,11 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import type { Media } from '@/payload/payload-types'
 
 const courseCategories = [
   { name: 'Nursing', slug: 'nursing' },
@@ -16,7 +18,12 @@ const courseCategories = [
   { name: 'Others', slug: 'others' },
 ]
 
-export function Navbar() {
+interface NavbarProps {
+  siteName?: string
+  siteLogo?: string | Media | null
+}
+
+export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false)
@@ -29,6 +36,9 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Get logo URL
+  const logoUrl = siteLogo && typeof siteLogo === 'object' ? (siteLogo as Media).url : null
+
   return (
     <nav
       className={`sticky top-0 z-40 bg-white transition-all duration-200 ${
@@ -39,9 +49,22 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl md:text-2xl font-serif font-semibold text-brand-primary">
-              Nibedita Institute
-            </span>
+            {logoUrl ? (
+              <div className="relative h-12 w-auto">
+                <Image
+                  src={logoUrl}
+                  alt={siteName}
+                  height={48}
+                  width={180}
+                  className="h-12 w-auto object-contain"
+                  priority
+                />
+              </div>
+            ) : (
+              <span className="text-xl md:text-2xl font-serif font-semibold text-brand-primary">
+                {siteName}
+              </span>
+            )}
           </Link>
 
           {/* Desktop Navigation */}

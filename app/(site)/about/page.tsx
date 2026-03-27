@@ -1,24 +1,30 @@
 import type { Metadata } from 'next'
 import { Target, Eye, Award, Users, Clock, Shield } from 'lucide-react'
 import Image from 'next/image'
+import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'About Us',
-  description:
-    'Learn about Nibedita Institute & Management - Leading educational consultancy in Dhupguri, West Bengal, helping students achieve their academic dreams.',
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings()
+  const siteName = siteSettings?.siteName || DEFAULT_SITE_SETTINGS.siteName
+
+  return {
+    title: 'About Us',
+    description: `Learn about ${siteName} - Leading educational consultancy in Dhupguri, West Bengal, helping students achieve their academic dreams.`,
+  }
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const siteSettings = await getSiteSettings()
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS
   return (
     <>
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-20">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">About Nibedita Institute</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">About {settings.siteName}</h1>
             <p className="text-lg text-white/90">
-              Empowering students to achieve their academic dreams through expert guidance and
-              personalized support
+              {settings.siteTagline}
             </p>
           </div>
         </div>

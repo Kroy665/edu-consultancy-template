@@ -1,21 +1,23 @@
 import type { Metadata } from 'next'
 import { EnquiryForm } from '@/components/sections/EnquiryForm'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
-import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
+import { getPageSettings, getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const siteSettings = await getSiteSettings()
-  const siteName = siteSettings?.siteName || DEFAULT_SITE_SETTINGS.siteName
+  const pageSettings = await getPageSettings('contactPage')
 
   return {
-    title: 'Contact Us',
-    description: `Get in touch with ${siteName} for admission guidance, career counselling, and course information. Visit us in Dhupguri, West Bengal.`,
+    title: pageSettings?.metaTitle || 'Contact Us | Nibedita Institute',
+    description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.contactPage.metaDescription,
   }
 }
 
 export default async function ContactPage() {
+  const pageSettings = await getPageSettings('contactPage')
   const siteSettings = await getSiteSettings()
   const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
+  const showMap = pageSettings?.showMap ?? DEFAULT_SITE_SETTINGS.pages.contactPage.showMap
 
   // Parse address lines
   const addressLines = settings.contactInfo?.address?.split('\n') || []
@@ -25,10 +27,11 @@ export default async function ContactPage() {
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-16">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">Contact Us</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">
+              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.contactPage.headerTitle}
+            </h1>
             <p className="text-lg text-white/90">
-              Have questions? We're here to help. Reach out to us for admission guidance and career
-              counselling.
+              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.contactPage.headerSubtitle}
             </p>
           </div>
         </div>
@@ -155,7 +158,7 @@ export default async function ContactPage() {
       </section>
 
       {/* Google Map */}
-      {settings.location?.googleMapsEmbedUrl && (
+      {showMap && settings.location?.googleMapsEmbedUrl && (
         <section className="h-96 md:h-[500px]">
           <iframe
             src={settings.location.googleMapsEmbedUrl}

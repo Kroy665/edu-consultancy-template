@@ -16,11 +16,15 @@ import {
   Briefcase,
   Heart
 } from 'lucide-react'
+import { getPageSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'Our Services',
-  description:
-    'Comprehensive educational consultancy services including career counselling, admission guidance, course selection, scholarship support, and education loan assistance.',
+export async function generateMetadata(): Promise<Metadata> {
+  const pageSettings = await getPageSettings('servicesPage')
+
+  return {
+    title: pageSettings?.metaTitle || 'Our Services | Nibedita Institute',
+    description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.servicesPage.metaDescription,
+  }
 }
 
 export const revalidate = 60;
@@ -41,6 +45,7 @@ const iconMap: Record<string, any> = {
 
 export default async function ServicesPage() {
   const payload = await getPayload({ config })
+  const pageSettings = await getPageSettings('servicesPage')
 
   // Fetch services from CMS
   const { docs: services } = await payload.find({
@@ -59,10 +64,11 @@ export default async function ServicesPage() {
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-16">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">Our Services</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">
+              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.servicesPage.headerTitle}
+            </h1>
             <p className="text-lg text-white/90">
-              Comprehensive support for every step of your educational journey. From career
-              counselling to admission confirmation, we're with you all the way.
+              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.servicesPage.headerSubtitle}
             </p>
           </div>
         </div>

@@ -4,12 +4,14 @@ import { Button } from '@/components/ui/Button'
 import { RichText } from '@/components/RichText'
 import { Clock, CheckCircle, TrendingUp, FileText } from 'lucide-react'
 import Link from 'next/link'
+import type { CategorySettings } from '@/lib/getSiteSettings'
 
 interface CoursePageTemplateProps {
   category: string
   categoryName: string
   categoryIcon: React.ComponentType<{ className?: string }>
   courses: Course[]
+  categorySettings?: CategorySettings
 }
 
 export function CoursePageTemplate({
@@ -17,7 +19,11 @@ export function CoursePageTemplate({
   categoryName,
   categoryIcon: Icon,
   courses,
+  categorySettings,
 }: CoursePageTemplateProps) {
+  const headerTitle = categorySettings?.headerTitle || `${categoryName} Programs`
+  const headerSubtitle = categorySettings?.headerSubtitle || `Build a rewarding career in ${categoryName.toLowerCase()}`
+
   return (
     <>
       {/* Hero Section */}
@@ -39,12 +45,16 @@ export function CoursePageTemplate({
               <div className="p-4 bg-white/10 rounded-lg">
                 <Icon className="w-10 h-10" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-serif">{categoryName} Courses</h1>
+              <h1 className="text-4xl md:text-5xl font-serif">{headerTitle}</h1>
             </div>
             <p className="text-lg text-white/90">
-              Explore {courses.length} {categoryName.toLowerCase()} courses with expert admission
-              guidance
+              {headerSubtitle}
             </p>
+            {categorySettings?.categoryDescription ? (
+              <div className="mt-6 text-white/90 prose prose-invert max-w-none">
+                <RichText content={categorySettings.categoryDescription as any} />
+              </div>
+            ) : null}
           </div>
         </div>
       </section>

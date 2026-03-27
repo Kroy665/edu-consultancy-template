@@ -2,11 +2,15 @@ import type { Metadata } from 'next'
 import { EnquiryForm } from '@/components/sections/EnquiryForm'
 import { Badge } from '@/components/ui/Badge'
 import { CheckCircle, FileText, GraduationCap, UserCheck, Award } from 'lucide-react'
+import { getPageSettings, DEFAULT_SITE_SETTINGS, type AdmissionPageSettings } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'Admission Process',
-  description:
-    'Learn about our admission process, eligibility criteria, required documents, and how to apply for courses. Get expert guidance for a smooth admission experience.',
+export async function generateMetadata(): Promise<Metadata> {
+  const pageSettings = await getPageSettings('admissionPage')
+
+  return {
+    title: pageSettings?.metaTitle || 'Admission Process | Nibedita Institute',
+    description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.admissionPage.metaDescription,
+  }
 }
 
 const admissionSteps = [
@@ -50,20 +54,28 @@ const requiredDocuments = [
   'Character Certificate',
 ]
 
-export default function AdmissionPage() {
+export default async function AdmissionPage() {
+  const pageSettings = await getPageSettings('admissionPage')
+
+  const showBanner = pageSettings?.showBanner ?? DEFAULT_SITE_SETTINGS.pages.admissionPage.showBanner
+  const bannerText = pageSettings?.bannerText || DEFAULT_SITE_SETTINGS.pages.admissionPage.bannerText
+
   return (
     <>
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-16">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <Badge variant="secondary" className="mb-4 inline-block">
-              Admissions Open 2026
-            </Badge>
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">Start Your Admission Journey</h1>
+            {showBanner && (
+              <Badge variant="secondary" className="mb-4 inline-block">
+                {bannerText}
+              </Badge>
+            )}
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">
+              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.admissionPage.headerTitle}
+            </h1>
             <p className="text-lg text-white/90">
-              Simple, transparent, and hassle-free admission process. We guide you at every step
-              from consultation to confirmation.
+              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.admissionPage.headerSubtitle}
             </p>
           </div>
         </div>

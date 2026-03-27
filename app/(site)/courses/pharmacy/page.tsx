@@ -4,16 +4,23 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { Pill } from 'lucide-react'
 import { CoursePageTemplate } from '@/components/course/CoursePageTemplate'
+import { getCourseCategorySettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'Pharmacy Courses',
-  description: 'Explore pharmacy courses including B.Pharm, D.Pharm, and more. Get expert guidance for admission to top pharmacy colleges.',
+export const revalidate = 60
+
+export async function generateMetadata(): Promise<Metadata> {
+  const categorySettings = await getCourseCategorySettings('pharmacy')
+
+  return {
+    title: categorySettings?.metaTitle || DEFAULT_SITE_SETTINGS.courseCategories.pharmacy.metaTitle,
+    description: categorySettings?.metaDescription || DEFAULT_SITE_SETTINGS.courseCategories.pharmacy.metaDescription,
+  }
 }
-
-export const revalidate = 60;
 
 export default async function PharmacyCoursesPage() {
   const payload = await getPayload({ config })
+  const categorySettings = await getCourseCategorySettings('pharmacy')
+
   const { docs: courses } = await payload.find({
     collection: 'courses',
     where: { category: { equals: 'pharmacy' } },
@@ -21,5 +28,13 @@ export default async function PharmacyCoursesPage() {
     sort: 'order',
   })
 
-  return <CoursePageTemplate category="pharmacy" categoryName="Pharmacy" categoryIcon={Pill} courses={courses as Course[]} />
+  return (
+    <CoursePageTemplate
+      category="pharmacy"
+      categoryName="Pharmacy"
+      categoryIcon={Pill}
+      courses={courses as Course[]}
+      categorySettings={categorySettings || DEFAULT_SITE_SETTINGS.courseCategories.pharmacy}
+    />
+  )
 }

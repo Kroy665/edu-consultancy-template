@@ -6,11 +6,15 @@ import Link from 'next/link'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, Clock } from 'lucide-react'
+import { getPageSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'Explore All Courses',
-  description:
-    'Browse through our extensive range of courses including Nursing, Engineering, Pharmacy, Management, and more. Find the perfect course for your career goals.',
+export async function generateMetadata(): Promise<Metadata> {
+  const pageSettings = await getPageSettings('coursesPage')
+
+  return {
+    title: pageSettings?.metaTitle || 'Explore All Programs | Nibedita Institute',
+    description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.coursesPage.metaDescription,
+  }
 }
 
 export const revalidate = 60;
@@ -39,6 +43,7 @@ const categoryLabels: Record<string, string> = {
 
 export default async function CoursesPage() {
   const payload = await getPayload({ config })
+  const pageSettings = await getPageSettings('coursesPage')
 
   // Fetch all courses from Payload CMS
   const { docs: courses } = await payload.find({
@@ -65,10 +70,11 @@ export default async function CoursesPage() {
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-16">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">Explore All Programs</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">
+              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.coursesPage.headerTitle}
+            </h1>
             <p className="text-lg text-white/90 mb-8">
-              Find the perfect course to launch your career. We offer guidance for 100+ courses
-              across 8 major categories.
+              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.coursesPage.headerSubtitle}
             </p>
           </div>
         </div>

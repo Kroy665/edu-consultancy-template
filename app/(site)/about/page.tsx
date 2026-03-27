@@ -1,30 +1,33 @@
 import type { Metadata } from 'next'
 import { Target, Eye, Award, Users, Clock, Shield } from 'lucide-react'
 import Image from 'next/image'
-import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
+import { getPageSettings, getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const siteSettings = await getSiteSettings()
-  const siteName = siteSettings?.siteName || DEFAULT_SITE_SETTINGS.siteName
+  const pageSettings = await getPageSettings('aboutPage')
 
   return {
-    title: 'About Us',
-    description: `Learn about ${siteName} - Leading educational consultancy in Dhupguri, West Bengal, helping students achieve their academic dreams.`,
+    title: pageSettings?.metaTitle || 'About Us | Nibedita Institute & Management',
+    description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.aboutPage.metaDescription,
   }
 }
 
 export default async function AboutPage() {
+  const pageSettings = await getPageSettings('aboutPage')
   const siteSettings = await getSiteSettings()
   const settings = siteSettings || DEFAULT_SITE_SETTINGS
+
   return (
     <>
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-20">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">About {settings.siteName}</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">
+              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.aboutPage.headerTitle}
+            </h1>
             <p className="text-lg text-white/90">
-              {settings.siteTagline}
+              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.aboutPage.headerSubtitle}
             </p>
           </div>
         </div>

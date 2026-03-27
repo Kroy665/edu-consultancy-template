@@ -6,17 +6,22 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { HelpCircle, BookOpen, Bell, Calendar } from 'lucide-react'
 import Link from 'next/link'
+import { getPageSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const metadata: Metadata = {
-  title: 'Student Corner',
-  description:
-    'Resources for students including FAQs, career guidance articles, admission updates, and important notifications.',
+export async function generateMetadata(): Promise<Metadata> {
+  const pageSettings = await getPageSettings('studentCornerPage')
+
+  return {
+    title: pageSettings?.metaTitle || 'Student Corner | Nibedita Institute',
+    description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.studentCornerPage.metaDescription,
+  }
 }
 
 export const revalidate = 60;
 
 export default async function StudentCornerPage() {
   const payload = await getPayload({ config })
+  const pageSettings = await getPageSettings('studentCornerPage')
 
   // Fetch FAQs
   const { docs: faqs } = await payload.find({
@@ -64,10 +69,11 @@ export default async function StudentCornerPage() {
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-16">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">Student Corner</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">
+              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.studentCornerPage.headerTitle}
+            </h1>
             <p className="text-lg text-white/90">
-              Your one-stop resource hub for FAQs, career guidance, admission updates, and important
-              notifications
+              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.studentCornerPage.headerSubtitle}
             </p>
           </div>
         </div>

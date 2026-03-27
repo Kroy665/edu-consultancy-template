@@ -6,15 +6,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/Badge'
 import { Calendar, User, ArrowRight } from 'lucide-react'
-import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
+import { getPageSettings, DEFAULT_SITE_SETTINGS, type BlogPageSettings } from '@/lib/getSiteSettings'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const siteSettings = await getSiteSettings()
-  const siteName = siteSettings?.siteName || DEFAULT_SITE_SETTINGS.siteName
+  const pageSettings = await getPageSettings('blogPage')
 
   return {
-    title: 'Blog - Career Guidance & Admission Tips',
-    description: `Read expert articles from ${siteName} on career guidance, admission processes, course selection, and educational insights to help you make informed decisions.`,
+    title: pageSettings?.metaTitle || 'Blog | Nibedita Institute',
+    description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.blogPage.metaDescription,
   }
 }
 
@@ -22,6 +21,9 @@ export const revalidate = 60;
 
 export default async function BlogPage() {
   const payload = await getPayload({ config })
+  const pageSettings = await getPageSettings('blogPage')
+
+  const postsPerPage = (pageSettings as BlogPageSettings)?.postsPerPage || DEFAULT_SITE_SETTINGS.pages.blogPage.postsPerPage
 
   const { docs: posts } = await payload.find({
     collection: 'blog-posts',
@@ -30,7 +32,7 @@ export default async function BlogPage() {
         equals: 'published',
       },
     },
-    limit: 50,
+    limit: postsPerPage,
     sort: '-publishedAt',
   })
 
@@ -40,10 +42,11 @@ export default async function BlogPage() {
       <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-16">
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">Our Blog</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-6">
+              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.blogPage.headerTitle}
+            </h1>
             <p className="text-lg text-white/90">
-              Expert insights on careers, admissions, and education to help you make the right
-              choices for your future
+              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.blogPage.headerSubtitle}
             </p>
           </div>
         </div>

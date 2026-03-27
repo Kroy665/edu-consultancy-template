@@ -333,5 +333,616 @@ export const SiteSettings: CollectionConfig = {
         },
       ],
     },
+
+    // Page-Specific Settings
+    {
+      name: 'pages',
+      type: 'group',
+      label: 'Page-Specific Settings',
+      fields: [
+        // Home Page
+        {
+          name: 'homePage',
+          type: 'group',
+          label: 'Home Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Nibedita Institute & Management | Educational Consultancy Dhupguri',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Leading educational consultancy in Dhupguri offering admission guidance for Nursing, Engineering, Pharmacy, MBA and more.',
+            },
+          ],
+        },
+
+        // About Page
+        {
+          name: 'aboutPage',
+          type: 'group',
+          label: 'About Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'About Us | Nibedita Institute & Management',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Learn about Nibedita Institute, our mission, vision, and commitment to helping students achieve their educational goals.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'About Nibedita Institute',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Your trusted partner in education for over a decade',
+            },
+          ],
+        },
+
+        // Courses Page
+        {
+          name: 'coursesPage',
+          type: 'group',
+          label: 'Courses Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Explore All Programs | Nibedita Institute',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Browse through our comprehensive list of courses including Nursing, Engineering, Pharmacy, Management, and more.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Explore All Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Find the perfect course to match your career aspirations',
+            },
+            {
+              name: 'headerDescription',
+              type: 'richText',
+              label: 'Header Description',
+              admin: {
+                description: 'Additional description text shown below the subtitle',
+              },
+            },
+          ],
+        },
+
+        // Services Page
+        {
+          name: 'servicesPage',
+          type: 'group',
+          label: 'Services Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Our Services | Nibedita Institute',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Comprehensive educational consultancy services including career counselling, admission guidance, and scholarship assistance.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Our Services',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Comprehensive support for your educational journey',
+            },
+            {
+              name: 'headerDescription',
+              type: 'richText',
+              label: 'Header Description',
+            },
+          ],
+        },
+
+        // Admission Page
+        {
+          name: 'admissionPage',
+          type: 'group',
+          label: 'Admission Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Admission Process | Nibedita Institute',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Learn about our admission process, eligibility criteria, required documents, and start your application today.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Start Your Admission Journey',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Simple, transparent, and hassle-free admission process',
+            },
+            {
+              name: 'headerDescription',
+              type: 'richText',
+              label: 'Header Description',
+            },
+            {
+              name: 'showBanner',
+              type: 'checkbox',
+              label: 'Show Admission Open Banner',
+              defaultValue: true,
+            },
+            {
+              name: 'bannerText',
+              type: 'text',
+              label: 'Banner Text',
+              defaultValue: 'Admissions Open for 2026 Session',
+            },
+          ],
+        },
+
+        // Student Corner Page
+        {
+          name: 'studentCornerPage',
+          type: 'group',
+          label: 'Student Corner Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Student Corner | Nibedita Institute',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'FAQs, career guidance articles, admission updates, and resources for students.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Student Corner',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Resources and information to help you succeed',
+            },
+          ],
+        },
+
+        // Blog Page
+        {
+          name: 'blogPage',
+          type: 'group',
+          label: 'Blog Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Blog | Nibedita Institute',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Latest articles on career guidance, admission tips, education trends, and student success stories.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Our Blog',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Insights, tips, and news from the world of education',
+            },
+            {
+              name: 'headerDescription',
+              type: 'richText',
+              label: 'Header Description',
+            },
+            {
+              name: 'postsPerPage',
+              type: 'number',
+              label: 'Posts Per Page',
+              defaultValue: 12,
+              min: 6,
+              max: 24,
+            },
+          ],
+        },
+
+        // Contact Page
+        {
+          name: 'contactPage',
+          type: 'group',
+          label: 'Contact Page',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Contact Us | Nibedita Institute',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Get in touch with Nibedita Institute for admission enquiries, career counselling, and educational guidance.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Contact Us',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'We\'re here to help you with your educational journey',
+            },
+            {
+              name: 'headerDescription',
+              type: 'richText',
+              label: 'Header Description',
+            },
+            {
+              name: 'showMap',
+              type: 'checkbox',
+              label: 'Show Google Map',
+              defaultValue: true,
+            },
+          ],
+        },
+      ],
+    },
+
+    // Course Category Settings
+    {
+      name: 'courseCategories',
+      type: 'group',
+      label: 'Course Category Settings',
+      fields: [
+        {
+          name: 'nursing',
+          type: 'group',
+          label: 'Nursing Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Nursing Courses | B.Sc Nursing, GNM & More',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore nursing courses including B.Sc Nursing, GNM, ANM, and post-basic nursing programs.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Nursing Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Build a rewarding career in healthcare',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+        {
+          name: 'pharmacy',
+          type: 'group',
+          label: 'Pharmacy Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Pharmacy Courses | B.Pharm, D.Pharm & More',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore pharmacy courses including B.Pharm, D.Pharm, and pharmaceutical science programs.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Pharmacy Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Launch your career in pharmaceutical sciences',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+        {
+          name: 'btech',
+          type: 'group',
+          label: 'B.Tech Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Engineering Courses | B.Tech Programs',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore B.Tech engineering programs in CSE, Mechanical, Civil, Electrical, and more specializations.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Engineering Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Shape the future with engineering excellence',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+        {
+          name: 'diploma',
+          type: 'group',
+          label: 'Diploma Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Diploma Courses | Polytechnic & Paramedical',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore diploma courses in engineering, paramedical, and technical fields.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Diploma Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Fast-track your career with industry-ready skills',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+        {
+          name: 'management',
+          type: 'group',
+          label: 'Management Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Management Courses | MBA, BBA & More',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore management programs including MBA, BBA, and specialized business courses.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Management Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Develop leadership skills for tomorrow\'s business world',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+        {
+          name: 'education',
+          type: 'group',
+          label: 'Education Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Education Courses | B.Ed, D.Ed, M.Ed',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore teacher training programs including B.Ed, D.Ed, M.Ed, and other education courses.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Education Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Shape young minds and inspire the next generation',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+        {
+          name: 'generalDegree',
+          type: 'group',
+          label: 'General Degree Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'General Degree Courses | BA, BSc, BCom',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore general degree programs including BA, BSc, BCom, and various undergraduate courses.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'General Degree Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Build a strong foundation for your academic journey',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+        {
+          name: 'others',
+          type: 'group',
+          label: 'Others Category',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              label: 'Meta Title',
+              defaultValue: 'Other Courses | Law, Agriculture, Library Science',
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              label: 'Meta Description',
+              defaultValue: 'Explore specialized courses including Law, Agriculture, Library Science, and other programs.',
+            },
+            {
+              name: 'headerTitle',
+              type: 'text',
+              label: 'Header Title',
+              defaultValue: 'Other Programs',
+            },
+            {
+              name: 'headerSubtitle',
+              type: 'textarea',
+              label: 'Header Subtitle',
+              defaultValue: 'Discover unique career pathways',
+            },
+            {
+              name: 'categoryDescription',
+              type: 'richText',
+              label: 'Category Description',
+            },
+          ],
+        },
+      ],
+    },
   ],
 }

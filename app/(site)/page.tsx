@@ -83,9 +83,11 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="section-container relative z-10 text-white py-20">
           <div className="max-w-3xl">
-            <Badge variant="secondary" className="mb-6 inline-block">
-              Admissions Open 2026
-            </Badge>
+            {activeBanner?.excerpt && (
+              <Badge variant="secondary" className="mb-6 inline-block">
+                {activeBanner.excerpt}
+              </Badge>
+            )}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 leading-tight">
               {activeBanner?.headline || 'Admissions Open 2026 — Secure Your Future'}
             </h1>
@@ -96,9 +98,11 @@ export default async function HomePage() {
               <Button href={activeBanner?.ctaLink || '/admission'} variant="primary" size="lg">
                 {activeBanner?.ctaText || 'Apply Now'}
               </Button>
-              <Button href="/courses" variant="outline" size="lg" className="bg-white/10 border-white text-white hover:bg-white hover:text-brand-primary">
-                Explore Courses
-              </Button>
+              {activeBanner?.secondaryCtaText && activeBanner?.secondaryCtaLink && (
+                <Button href={activeBanner.secondaryCtaLink} variant="outline" size="lg" className="bg-white/10 border-white text-white hover:bg-white hover:text-brand-primary">
+                  {activeBanner.secondaryCtaText}
+                </Button>
+              )}
             </div>
           </div>
         </div>

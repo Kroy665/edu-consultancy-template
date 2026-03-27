@@ -68,10 +68,13 @@ export interface BlogPost {
 
 export interface Banner {
   id: string
+  excerpt?: string
   headline: string
   subheadline?: string
   ctaText?: string
   ctaLink?: string
+  secondaryCtaText?: string
+  secondaryCtaLink?: string
   backgroundImage?: string | Media
   active?: boolean
   order?: number

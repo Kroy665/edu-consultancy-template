@@ -717,7 +717,7 @@ export function WhatsAppButton() {
 
 ```js
 module.exports = {
-  siteUrl: 'https://nibedita.in',
+  siteUrl: 'https://nibedita.kroy.dev',
   generateRobotsTxt: true,
   exclude: ['/admin', '/admin/*', '/api/*'],
   additionalPaths: async (config) => {
@@ -731,7 +731,7 @@ module.exports = {
 
 ```ts
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nibedita.in'),
+  metadataBase: new URL('https://nibedita.kroy.dev'),
   title: {
     default: 'Nibedita Institute & Management | Educational Consultancy Dhupguri',
     template: '%s | Nibedita Institute',
@@ -741,7 +741,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://nibedita.in',
+    url: 'https://nibedita.kroy.dev',
     siteName: 'Nibedita Institute & Management',
   },
 }
@@ -755,7 +755,7 @@ const jsonLd = {
   '@type': 'EducationalOrganization',
   name: 'Nibedita Institute and Management',
   description: 'Educational consultancy offering admission guidance in Dhupguri, West Bengal',
-  url: 'https://nibedita.in',
+  url: 'https://nibedita.kroy.dev',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Dhupguri',

@@ -5,7 +5,7 @@ import config from '@payload-config'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, Clock } from 'lucide-react'
+import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, Clock, LucideIcon } from 'lucide-react'
 import { getPageSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const revalidate = 60;
 
-const categoryIcons: Record<string, any> = {
+const categoryIcons: Record<string, LucideIcon> = {
   nursing: Heart,
   pharmacy: Pill,
   btech: Cpu,

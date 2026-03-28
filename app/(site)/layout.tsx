@@ -16,20 +16,51 @@ export async function generateMetadata(): Promise<Metadata> {
     DEFAULT_SITE_SETTINGS.seo.keywords.map(k => k.keyword)
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.kroy.dev'),
     title: {
       default: `${siteName} | Educational Consultancy Dhupguri`,
       template: `%s | ${siteName}`,
     },
     description,
     keywords,
+    authors: [{ name: siteName }],
+    creator: siteName,
+    publisher: siteName,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       type: 'website',
       locale: 'en_IN',
-      url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in',
+      url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.kroy.dev',
       siteName,
       title: `${siteName} | Educational Consultancy Dhupguri`,
       description,
+      images: [
+        {
+          url: '/images/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: `${siteName} - Educational Consultancy`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${siteName} | Educational Consultancy Dhupguri`,
+      description,
+      images: ['/images/og-image.jpg'],
+    },
+    alternates: {
+      canonical: process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.kroy.dev',
     },
   }
 }
@@ -43,15 +74,22 @@ export default async function SiteLayout({
   const siteSettings = await getSiteSettings()
   const settings = siteSettings || DEFAULT_SITE_SETTINGS
 
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.kroy.dev'
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
+    '@id': `${baseUrl}/#organization`,
     name: siteSettings?.siteName || 'Nibedita Institute and Management',
-    description: 'Educational consultancy offering admission guidance in Dhupguri, West Bengal',
-    url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.in',
+    description: siteSettings?.seo?.metaDescription || 'Educational consultancy offering admission guidance in Dhupguri, West Bengal',
+    url: baseUrl,
+    logo: siteSettings?.siteLogo && typeof siteSettings.siteLogo === 'object'
+      ? `${baseUrl}${siteSettings.siteLogo.url}`
+      : `${baseUrl}/images/logo.png`,
+    image: `${baseUrl}/images/og-image.jpg`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Dhupguri',
+      streetAddress: siteSettings?.contactInfo?.address?.split('\n')[0] || 'Dhupguri',
       addressLocality: 'Jalpaiguri',
       addressRegion: 'West Bengal',
       postalCode: '735210',
@@ -59,6 +97,23 @@ export default async function SiteLayout({
     },
     telephone: siteSettings?.contactInfo?.phone || '+91 99999 99999',
     email: siteSettings?.contactInfo?.email || 'info@nibedita.in',
+    areaServed: {
+      '@type': 'State',
+      name: 'West Bengal',
+    },
+    knowsAbout: [
+      'Nursing Education',
+      'Pharmacy Education',
+      'Engineering Education',
+      'Management Education',
+      'Career Counselling',
+      'Admission Guidance',
+    ],
+    sameAs: [
+      siteSettings?.socialMedia?.facebook,
+      siteSettings?.socialMedia?.instagram,
+      siteSettings?.socialMedia?.youtube,
+    ].filter(Boolean),
   }
 
   return (

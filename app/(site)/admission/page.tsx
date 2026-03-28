@@ -126,7 +126,8 @@ export default async function AdmissionPage() {
           </h2>
 
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+            {/* Desktop Table View */}
+            <div className="hidden md:block bg-white rounded-xl border border-neutral-200 overflow-hidden">
               <table className="w-full">
                 <thead className="bg-brand-primary text-white">
                   <tr>
@@ -163,6 +164,60 @@ export default async function AdmissionPage() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden space-y-4">
+              {/* Card 1 */}
+              <div className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <div className="bg-brand-primary text-white px-4 py-3">
+                  <h3 className="font-semibold">Diploma / Certificate Courses</h3>
+                </div>
+                <div className="p-4 space-y-2">
+                  <div>
+                    <span className="text-sm text-neutral-500">Minimum Qualification:</span>
+                    <p className="font-medium text-neutral-900">10th Pass</p>
+                  </div>
+                  <div>
+                    <span className="text-sm text-neutral-500">Examples:</span>
+                    <p className="text-sm text-neutral-700">ITI, Polytechnic, Nursing (ANM)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2 */}
+              <div className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <div className="bg-brand-primary text-white px-4 py-3">
+                  <h3 className="font-semibold">Undergraduate (UG)</h3>
+                </div>
+                <div className="p-4 space-y-2">
+                  <div>
+                    <span className="text-sm text-neutral-500">Minimum Qualification:</span>
+                    <p className="font-medium text-neutral-900">12th Pass</p>
+                  </div>
+                  <div>
+                    <span className="text-sm text-neutral-500">Examples:</span>
+                    <p className="text-sm text-neutral-700">B.Tech, B.Sc Nursing, B.Pharm, BA, BSc, BCom</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <div className="bg-brand-primary text-white px-4 py-3">
+                  <h3 className="font-semibold">Postgraduate (PG)</h3>
+                </div>
+                <div className="p-4 space-y-2">
+                  <div>
+                    <span className="text-sm text-neutral-500">Minimum Qualification:</span>
+                    <p className="font-medium text-neutral-900">Graduation (Any Stream)</p>
+                  </div>
+                  <div>
+                    <span className="text-sm text-neutral-500">Examples:</span>
+                    <p className="text-sm text-neutral-700">MBA, M.Tech, M.Sc, M.Ed</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="mt-6 bg-brand-orange border-l-4 border-brand-secondary rounded-lg p-6">

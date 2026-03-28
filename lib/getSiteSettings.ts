@@ -86,6 +86,8 @@ export async function getSiteSettings(): Promise<ExtendedSiteSettings | null> {
     return (docs[0] as ExtendedSiteSettings) || null
   } catch (error) {
     console.error('Error fetching site settings:', error)
+    // Return null to use DEFAULT_SITE_SETTINGS as fallback
+    // This prevents the app from crashing if MongoDB connection fails
     return null
   }
 }

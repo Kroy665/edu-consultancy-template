@@ -33,6 +33,12 @@ export default buildConfig({
     connectOptions: {
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
+      tls: true,
+      tlsAllowInvalidCertificates: false,
+      retryWrites: true,
+      retryReads: true,
+      maxPoolSize: 10,
+      minPoolSize: 2,
     },
   }),
   sharp,

@@ -117,7 +117,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Banner */}
-      <section aria-label="Hero Banner" className="relative min-h-screen flex items-center bg-gradient-to-br from-brand-primary to-brand-primary/80">
+      <section aria-label="Hero Banner" className="relative min-h-screen flex items-center bg-gradient-to-br from-brand-navy to-brand-navy/80">
         {backgroundImageUrl && (
           <Image
             src={backgroundImageUrl}
@@ -136,7 +136,7 @@ export default async function HomePage() {
                 {activeBanner.excerpt}
               </Badge>
             )}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 leading-tight text-brand-accent">
               {activeBanner?.headline || 'Admissions Open 2026 — Secure Your Future'}
             </h1>
             <p className="text-lg md:text-xl mb-8 text-white/90">
@@ -147,7 +147,7 @@ export default async function HomePage() {
                 {activeBanner?.ctaText || 'Apply Now'}
               </Button>
               {activeBanner?.secondaryCtaText && activeBanner?.secondaryCtaLink && (
-                <Button href={activeBanner.secondaryCtaLink} variant="outline" size="lg" className="bg-white/10 border-white text-white hover:bg-white hover:text-brand-primary">
+                <Button href={activeBanner.secondaryCtaLink} variant="outline" size="lg" className="bg-white/10 border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-brand-navy">
                   {activeBanner.secondaryCtaText}
                 </Button>
               )}
@@ -180,14 +180,14 @@ export default async function HomePage() {
       <EnquiryForm source="home-page" />
 
       {/* Contact Snapshot */}
-      <section className="bg-neutral-900 text-white py-12">
+      <section className="bg-brand-primary text-white py-12">
         <div className="section-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
               <MapPin className="w-6 h-6 text-brand-secondary flex-shrink-0" />
               <div>
-                <h3 className="font-semibold mb-1">Visit Us</h3>
-                <p className="text-neutral-400 text-sm">
+                <h3 className="font-semibold mb-1 text-brand-accent">Visit Us</h3>
+                <p className="text-neutral-300 text-sm">
                   {addressLines.map((line, idx) => (
                     <span key={idx}>
                       {line}
@@ -200,24 +200,24 @@ export default async function HomePage() {
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
               <Phone className="w-6 h-6 text-brand-secondary flex-shrink-0" />
               <div>
-                <h3 className="font-semibold mb-1">Call Us</h3>
+                <h3 className="font-semibold mb-1 text-brand-accent">Call Us</h3>
                 {settings.contactInfo?.phone && (
-                  <p className="text-neutral-400 text-sm">{settings.contactInfo.phone}</p>
+                  <p className="text-neutral-300 text-sm">{settings.contactInfo.phone}</p>
                 )}
                 {settings.contactInfo?.whatsapp && (
-                  <p className="text-neutral-400 text-sm">WhatsApp Available</p>
+                  <p className="text-neutral-300 text-sm">WhatsApp Available</p>
                 )}
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
               <Mail className="w-6 h-6 text-brand-secondary flex-shrink-0" />
               <div>
-                <h3 className="font-semibold mb-1">Email Us</h3>
+                <h3 className="font-semibold mb-1 text-brand-accent">Email Us</h3>
                 {settings.contactInfo?.email && (
-                  <p className="text-neutral-400 text-sm">{settings.contactInfo.email}</p>
+                  <p className="text-neutral-300 text-sm">{settings.contactInfo.email}</p>
                 )}
                 {settings.contactInfo?.secondaryEmail && (
-                  <p className="text-neutral-400 text-sm">{settings.contactInfo.secondaryEmail}</p>
+                  <p className="text-neutral-300 text-sm">{settings.contactInfo.secondaryEmail}</p>
                 )}
               </div>
             </div>

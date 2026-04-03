@@ -71,13 +71,13 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
           <div className="hidden lg:flex items-center space-x-8">
             <Link
               href="/"
-              className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
+              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
+              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
             >
               About
             </Link>
@@ -88,7 +88,7 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
               onMouseEnter={() => setIsCoursesDropdownOpen(true)}
               onMouseLeave={() => setIsCoursesDropdownOpen(false)}
             >
-              <button className="flex items-center space-x-1 text-neutral-800 hover:text-brand-primary transition-colors duration-200">
+              <button className="flex items-center space-x-1 text-brand-navy hover:text-brand-secondary transition-colors duration-200">
                 <span>Courses</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
@@ -98,7 +98,7 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
                     <Link
                       key={category.slug}
                       href={`/courses/${category.slug}`}
-                      className="block px-4 py-2 text-neutral-700 hover:bg-brand-light hover:text-brand-primary transition-colors duration-150"
+                      className="block px-4 py-2 text-brand-navy hover:bg-brand-light hover:text-brand-secondary transition-colors duration-150"
                     >
                       {category.name}
                     </Link>
@@ -109,25 +109,25 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
 
             <Link
               href="/services"
-              className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
+              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
             >
               Services
             </Link>
             <Link
               href="/student-corner"
-              className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
+              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
             >
               Student Corner
             </Link>
             <Link
               href="/blog"
-              className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
+              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
             >
               Blog
             </Link>
             <Link
               href="/contact"
-              className="text-neutral-800 hover:text-brand-primary transition-colors duration-200"
+              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
             >
               Contact
             </Link>
@@ -157,14 +157,14 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
           <div className="section-container py-4 space-y-4">
             <Link
               href="/"
-              className="block py-2 text-neutral-800 hover:text-brand-primary"
+              className="block py-2 text-brand-navy hover:text-brand-secondary"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="block py-2 text-neutral-800 hover:text-brand-primary"
+              className="block py-2 text-brand-navy hover:text-brand-secondary"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               About
@@ -174,7 +174,7 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
             <div>
               <button
                 onClick={() => setIsCoursesDropdownOpen(!isCoursesDropdownOpen)}
-                className="flex items-center justify-between w-full py-2 text-neutral-800"
+                className="flex items-center justify-between w-full py-2 text-brand-navy"
               >
                 <span>Courses</span>
                 <ChevronDown
@@ -189,7 +189,7 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
                     <Link
                       key={category.slug}
                       href={`/courses/${category.slug}`}
-                      className="block py-2 text-sm text-neutral-700 hover:text-brand-primary"
+                      className="block py-2 text-sm text-brand-navy hover:text-brand-secondary"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {category.name}
@@ -201,28 +201,28 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
 
             <Link
               href="/services"
-              className="block py-2 text-neutral-800 hover:text-brand-primary"
+              className="block py-2 text-brand-navy hover:text-brand-secondary"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Services
             </Link>
             <Link
               href="/student-corner"
-              className="block py-2 text-neutral-800 hover:text-brand-primary"
+              className="block py-2 text-brand-navy hover:text-brand-secondary"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Student Corner
             </Link>
             <Link
               href="/blog"
-              className="block py-2 text-neutral-800 hover:text-brand-primary"
+              className="block py-2 text-brand-navy hover:text-brand-secondary"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Blog
             </Link>
             <Link
               href="/contact"
-              className="block py-2 text-neutral-800 hover:text-brand-primary"
+              className="block py-2 text-brand-navy hover:text-brand-secondary"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact

@@ -78,7 +78,7 @@ export function CourseCategoriesGrid({ categories }: CourseCategoriesGridProps) 
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           variants={titleVariants}
-          className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-primary"
+          className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-navy"
         >
           Explore Our Programs
         </motion.h2>
@@ -112,7 +112,7 @@ export function CourseCategoriesGrid({ categories }: CourseCategoriesGridProps) 
                   >
                     <Icon className="w-10 h-10 text-brand-secondary mb-3 transition-transform" />
                   </motion.div>
-                  <h3 className="font-semibold text-neutral-900 mb-1 group-hover:text-brand-primary transition-colors">
+                  <h3 className="font-semibold text-brand-navy mb-1 group-hover:text-brand-secondary transition-colors">
                     {category.name}
                   </h3>
                   <p className="text-sm text-neutral-600">{category.tagline}</p>

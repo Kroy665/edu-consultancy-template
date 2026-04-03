@@ -25,30 +25,30 @@ export function Footer({ siteSettings }: FooterProps) {
   const addressLines = settings.contactInfo?.address?.split('\n') || []
 
   return (
-    <footer className="bg-neutral-900 text-white">
+    <footer className="bg-brand-primary text-white">
       <div className="section-container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & Tagline */}
           <div>
-            <h3 className="text-xl font-serif font-semibold mb-3">
+            <h3 className="text-xl font-serif font-semibold mb-3 text-brand-accent">
               {settings.siteName}
             </h3>
-            <p className="text-neutral-400 text-sm mb-4">
+            <p className="text-neutral-300 text-sm mb-4">
               {settings.siteTagline}
             </p>
-            <p className="text-neutral-400 text-sm leading-relaxed">
+            <p className="text-neutral-300 text-sm leading-relaxed">
               Leading educational consultancy in Dhupguri, West Bengal, providing expert admission guidance and career counselling.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4 text-brand-accent">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                 >
                   Home
                 </Link>
@@ -56,7 +56,7 @@ export function Footer({ siteSettings }: FooterProps) {
               <li>
                 <Link
                   href="/about"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                 >
                   About
                 </Link>
@@ -64,7 +64,7 @@ export function Footer({ siteSettings }: FooterProps) {
               <li>
                 <Link
                   href="/services"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                 >
                   Services
                 </Link>
@@ -72,7 +72,7 @@ export function Footer({ siteSettings }: FooterProps) {
               <li>
                 <Link
                   href="/admission"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                 >
                   Admission
                 </Link>
@@ -80,7 +80,7 @@ export function Footer({ siteSettings }: FooterProps) {
               <li>
                 <Link
                   href="/student-corner"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                 >
                   Student Corner
                 </Link>
@@ -88,7 +88,7 @@ export function Footer({ siteSettings }: FooterProps) {
               <li>
                 <Link
                   href="/blog"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                 >
                   Blog
                 </Link>
@@ -96,7 +96,7 @@ export function Footer({ siteSettings }: FooterProps) {
               <li>
                 <Link
                   href="/contact"
-                  className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                 >
                   Contact
                 </Link>
@@ -106,13 +106,13 @@ export function Footer({ siteSettings }: FooterProps) {
 
           {/* Courses */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Courses</h4>
+            <h4 className="text-lg font-semibold mb-4 text-brand-accent">Courses</h4>
             <ul className="space-y-2">
               {courseCategories.map((category) => (
                 <li key={category.slug}>
                   <Link
                     href={`/courses/${category.slug}`}
-                    className="text-neutral-400 hover:text-white transition-colors text-sm"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors text-sm"
                   >
                     {category.name}
                   </Link>
@@ -123,11 +123,11 @@ export function Footer({ siteSettings }: FooterProps) {
 
           {/* Contact */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
+            <h4 className="text-lg font-semibold mb-4 text-brand-accent">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-2 text-sm">
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-brand-secondary" />
-                <span className="text-neutral-400">
+                <span className="text-neutral-300">
                   {addressLines.map((line: string, idx: number) => (
                     <span key={idx}>
                       {line}
@@ -141,7 +141,7 @@ export function Footer({ siteSettings }: FooterProps) {
                   <Phone className="w-4 h-4 flex-shrink-0 text-brand-secondary" />
                   <a
                     href={`tel:${settings.contactInfo.phone}`}
-                    className="text-neutral-400 hover:text-white transition-colors"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors"
                   >
                     {settings.contactInfo.phone}
                   </a>
@@ -152,7 +152,7 @@ export function Footer({ siteSettings }: FooterProps) {
                   <Mail className="w-4 h-4 flex-shrink-0 text-brand-secondary" />
                   <a
                     href={`mailto:${settings.contactInfo.email}`}
-                    className="text-neutral-400 hover:text-white transition-colors"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors"
                   >
                     {settings.contactInfo.email}
                   </a>
@@ -168,7 +168,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     href={siteSettings.socialMedia.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors"
                     aria-label="Facebook"
                   >
                     <FaFacebook className="w-5 h-5" />
@@ -179,7 +179,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     href={siteSettings.socialMedia.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors"
                     aria-label="Instagram"
                   >
                     <FaInstagram className="w-5 h-5" />
@@ -190,7 +190,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     href={siteSettings.socialMedia.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors"
                     aria-label="YouTube"
                   >
                     <FaYoutube className="w-5 h-5" />
@@ -201,7 +201,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     href={siteSettings.socialMedia.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors"
                     aria-label="LinkedIn"
                   >
                     <FaLinkedin className="w-5 h-5" />
@@ -212,7 +212,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     href={siteSettings.socialMedia.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors"
+                    className="text-neutral-300 hover:text-brand-secondary transition-colors"
                     aria-label="Twitter/X"
                   >
                     <FaTwitter className="w-5 h-5" />
@@ -228,26 +228,26 @@ export function Footer({ siteSettings }: FooterProps) {
       <div className="border-t border-neutral-800">
         <div className="section-container py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-neutral-400 text-sm">
+            <p className="text-neutral-300 text-sm">
               {settings.footer?.copyrightText || `© ${currentYear} ${settings.siteName}. All rights reserved.`}
             </p>
             {settings.footer?.showLegalLinks !== false && (
               <div className="flex space-x-6 text-sm">
                 <Link
                   href="/privacy-policy"
-                  className="text-neutral-400 hover:text-white transition-colors"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   href="/terms-and-conditions"
-                  className="text-neutral-400 hover:text-white transition-colors"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors"
                 >
                   Terms
                 </Link>
                 <Link
                   href="/disclaimer"
-                  className="text-neutral-400 hover:text-white transition-colors"
+                  className="text-neutral-300 hover:text-brand-secondary transition-colors"
                 >
                   Disclaimer
                 </Link>

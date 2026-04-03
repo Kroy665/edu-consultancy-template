@@ -5,6 +5,10 @@ export const Enquiries: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'phone', 'course', 'status', 'createdAt'],
+    description: 'All student enquiries submitted through the website forms.',
+    components: {
+      beforeListTable: ['@/components/admin/DownloadEnquiriesButton#DownloadEnquiriesButton'],
+    },
   },
   access: {
     create: () => true,

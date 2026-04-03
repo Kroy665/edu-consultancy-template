@@ -117,7 +117,7 @@ export function WhyChooseUs() {
           initial={{ opacity: 0, y: -20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-primary"
+          className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-navy"
         >
           Why Choose Nibedita Institute
         </motion.h2>
@@ -144,7 +144,7 @@ export function WhyChooseUs() {
                   <Icon className="w-8 h-8 text-brand-secondary" />
                 </motion.div>
                 <Counter value={stat.value} suffix={stat.suffix} />
-                <p className="text-neutral-700 font-medium">{stat.label}</p>
+                <p className="text-brand-navy font-medium">{stat.label}</p>
               </motion.div>
             )
           })}

@@ -111,16 +111,28 @@ export function WhyChooseUs() {
   }
 
   return (
-    <section className="py-16 bg-brand-light">
-      <div className="section-container">
+    <section className="py-20 bg-gradient-to-b from-brand-light/40 via-brand-orange/20 to-brand-light/40 relative overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+
+      <div className="section-container relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-navy"
+          className="text-4xl md:text-5xl font-serif text-center mb-4"
         >
-          Why Choose Nibedita Institute
+          <span className="gradient-text">Why Choose</span> <span className="text-brand-navy">Nibedita Institute</span>
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-center text-neutral-600 mb-16 max-w-2xl mx-auto"
+        >
+          Trusted by thousands of students for exceptional guidance and proven results
+        </motion.p>
 
         <motion.div
           ref={ref}
@@ -139,12 +151,12 @@ export function WhyChooseUs() {
               >
                 <motion.div
                   variants={iconVariants}
-                  className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-brand-secondary/10 rounded-full group-hover:bg-brand-secondary/20 transition-colors"
+                  className="inline-flex items-center justify-center w-20 h-20 mb-5 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-2xl group-hover:shadow-gold group-hover:scale-110 transition-all duration-300 backdrop-blur-sm border border-brand-secondary/20"
                 >
-                  <Icon className="w-8 h-8 text-brand-secondary" />
+                  <Icon className="w-10 h-10 text-brand-secondary group-hover:text-brand-accent transition-colors" />
                 </motion.div>
                 <Counter value={stat.value} suffix={stat.suffix} />
-                <p className="text-brand-navy font-medium">{stat.label}</p>
+                <p className="text-brand-navy font-semibold text-lg">{stat.label}</p>
               </motion.div>
             )
           })}

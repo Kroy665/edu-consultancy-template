@@ -75,19 +75,23 @@ export function EnquiryForm({ source = 'home', className = '' }: EnquiryFormProp
   }
 
   return (
-    <section className={`bg-brand-light py-16 ${className}`}>
-      <div className="section-container">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-serif text-brand-primary mb-4">
-              Start Your Admission Journey
+    <section className={`bg-gradient-to-b from-brand-light/50 via-brand-orange/30 to-brand-light/50 py-20 relative overflow-hidden ${className}`}>
+      {/* Decorative Elements */}
+      <div className="absolute top-20 left-0 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-0 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl" />
+
+      <div className="section-container relative z-10">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-serif mb-4">
+              <span className="gradient-text">Start Your</span> <span className="text-brand-navy">Admission Journey</span>
             </h2>
-            <p className="text-neutral-600">
-              Fill out the form below and our experts will get in touch with you
+            <p className="text-neutral-600 text-lg">
+              Fill out the form below and our experts will get in touch with you within 24 hours
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl shadow-sm p-6 md:p-8 space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="bg-gradient-to-br from-white to-brand-light/30 rounded-3xl shadow-2xl p-8 md:p-10 space-y-6 border border-neutral-200/60 backdrop-blur-sm">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <Input
                 label="Full Name"

@@ -132,7 +132,7 @@ export function HeroBannerCarousel({
   return (
     <section
       aria-label="Hero Banner Carousel"
-      className="relative min-h-screen flex items-center bg-gradient-to-br from-brand-navy to-brand-navy/80 overflow-hidden"
+      className="relative min-h-screen flex items-center bg-gradient-to-br from-brand-navy via-brand-navy to-brand-primary overflow-hidden animate-gradient"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -166,8 +166,12 @@ export function HeroBannerCarousel({
         </motion.div>
       </AnimatePresence>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50 z-[1]" />
+      {/* Dark overlay with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 z-[1]" />
+
+      {/* Decorative Elements */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-brand-secondary/20 rounded-full blur-3xl z-[1] animate-pulse" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-brand-accent/20 rounded-full blur-3xl z-[1] animate-pulse" style={{ animationDelay: '1s' }} />
 
       {/* Content */}
       <div className="section-container relative z-10 text-white py-20">
@@ -182,7 +186,7 @@ export function HeroBannerCarousel({
           >
             {currentBanner.excerpt && (
               <motion.div variants={itemVariants}>
-                <Badge variant="secondary" className="mb-6 inline-block">
+                <Badge variant="primary" className="mb-6 inline-block shadow-2xl">
                   {currentBanner.excerpt}
                 </Badge>
               </motion.div>
@@ -190,15 +194,15 @@ export function HeroBannerCarousel({
 
             <motion.h1
               variants={itemVariants}
-              className="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 leading-tight text-brand-accent"
+              className="text-4xl md:text-5xl lg:text-7xl font-serif mb-6 leading-tight"
             >
-              {currentBanner.headline}
+              <span className="gradient-text drop-shadow-lg">{currentBanner.headline}</span>
             </motion.h1>
 
             {currentBanner.subheadline && (
               <motion.p
                 variants={itemVariants}
-                className="text-lg md:text-xl mb-8 text-white/90"
+                className="text-lg md:text-xl lg:text-2xl mb-10 text-white/95 font-medium leading-relaxed"
               >
                 {currentBanner.subheadline}
               </motion.p>
@@ -218,7 +222,7 @@ export function HeroBannerCarousel({
                   href={currentBanner.secondaryCtaLink}
                   variant="outline"
                   size="lg"
-                  className="bg-white/10 border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-brand-navy"
+                  className="glass-dark border-brand-accent text-white hover:bg-brand-accent hover:text-brand-navy hover:border-brand-accent shadow-xl"
                 >
                   {currentBanner.secondaryCtaText}
                 </Button>
@@ -233,32 +237,32 @@ export function HeroBannerCarousel({
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 glass-dark text-white p-4 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-brand-secondary/30 group"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6 group-hover:text-brand-accent transition-colors" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 glass-dark text-white p-4 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-brand-secondary/30 group"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6 group-hover:text-brand-accent transition-colors" />
           </button>
         </>
       )}
 
       {/* Dot Indicators (only show if more than 1 banner) */}
       {banners.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3 glass-dark px-4 py-2 rounded-full">
           {banners.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
               className={`transition-all duration-300 rounded-full ${
                 index === currentIndex
-                  ? 'bg-brand-secondary w-8 h-3'
-                  : 'bg-white/50 hover:bg-white/75 w-3 h-3'
+                  ? 'bg-gradient-to-r from-brand-secondary to-brand-accent w-10 h-3 shadow-gold'
+                  : 'bg-white/40 hover:bg-white/75 w-3 h-3 hover:scale-125'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

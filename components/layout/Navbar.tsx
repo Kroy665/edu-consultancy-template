@@ -51,8 +51,10 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
 
   return (
     <nav
-      className={`sticky top-0 z-40 bg-white transition-all duration-200 ${
-        isScrolled ? 'border-b border-neutral-200 shadow-sm' : ''
+      className={`sticky top-0 z-40 transition-all duration-300 ${
+        isScrolled
+          ? 'glass border-b border-white/20 shadow-xl'
+          : 'bg-white/95 backdrop-blur-sm'
       }`}
     >
       <div className="section-container">

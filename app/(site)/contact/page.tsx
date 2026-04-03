@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { EnquiryForm } from '@/components/sections/EnquiryForm'
+import { PageHeader } from '@/components/layout/PageHeader'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 import { getPageSettings, getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
@@ -24,27 +25,25 @@ export default async function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-16">
-        <div className="section-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">
-              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.contactPage.headerTitle}
-            </h1>
-            <p className="text-lg text-white/90">
-              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.contactPage.headerSubtitle}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.contactPage.headerTitle}
+        subtitle={pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.contactPage.headerSubtitle}
+      />
 
       {/* Contact Information & Form */}
-      <section className="py-16 bg-white">
-        <div className="section-container">
+      <section className="py-20 bg-gradient-to-b from-white via-brand-light/20 to-white relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute top-20 left-0 w-96 h-96 bg-brand-secondary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Information */}
             <div className="lg:col-span-2 space-y-8">
               <div>
-                <h2 className="text-2xl font-serif text-brand-primary mb-6">Get In Touch</h2>
+                <h2 className="text-3xl md:text-4xl font-serif mb-4">
+                  <span className="gradient-text">Get In</span> <span className="text-brand-navy">Touch</span>
+                </h2>
                 <p className="text-neutral-600 mb-8">
                   Visit our office or reach out to us through phone, email, or WhatsApp. We're
                   always ready to assist you with your educational needs.
@@ -52,12 +51,12 @@ export default async function ContactPage() {
               </div>
 
               {/* Office Address */}
-              <div className="flex gap-4">
-                <div className="p-3 bg-brand-secondary/10 rounded-lg h-fit">
-                  <MapPin className="w-6 h-6 text-brand-secondary" />
+              <div className="flex gap-5 bg-gradient-to-br from-white to-brand-light/30 p-6 rounded-2xl shadow-lg border border-neutral-200/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="p-4 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl h-fit">
+                  <MapPin className="w-7 h-7 text-brand-secondary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 mb-2">Office Address</h3>
+                  <h3 className="font-bold text-brand-navy mb-3 text-lg">Office Address</h3>
                   <p className="text-neutral-600 text-sm">
                     {addressLines.map((line, idx) => (
                       <span key={idx}>
@@ -72,12 +71,12 @@ export default async function ContactPage() {
               </div>
 
               {/* Phone */}
-              <div className="flex gap-4">
-                <div className="p-3 bg-brand-secondary/10 rounded-lg h-fit">
-                  <Phone className="w-6 h-6 text-brand-secondary" />
+              <div className="flex gap-5 bg-gradient-to-br from-white to-brand-light/30 p-6 rounded-2xl shadow-lg border border-neutral-200/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="p-4 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl h-fit">
+                  <Phone className="w-7 h-7 text-brand-secondary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 mb-2">Phone & WhatsApp</h3>
+                  <h3 className="font-bold text-brand-navy mb-3 text-lg">Phone & WhatsApp</h3>
                   <p className="text-neutral-600 text-sm">
                     {settings.contactInfo?.phone && (
                       <>
@@ -103,12 +102,12 @@ export default async function ContactPage() {
               </div>
 
               {/* Email */}
-              <div className="flex gap-4">
-                <div className="p-3 bg-brand-secondary/10 rounded-lg h-fit">
-                  <Mail className="w-6 h-6 text-brand-secondary" />
+              <div className="flex gap-5 bg-gradient-to-br from-white to-brand-light/30 p-6 rounded-2xl shadow-lg border border-neutral-200/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="p-4 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl h-fit">
+                  <Mail className="w-7 h-7 text-brand-secondary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 mb-2">Email Address</h3>
+                  <h3 className="font-bold text-brand-navy mb-3 text-lg">Email Address</h3>
                   <p className="text-neutral-600 text-sm">
                     {settings.contactInfo?.email && (
                       <>
@@ -128,12 +127,12 @@ export default async function ContactPage() {
               </div>
 
               {/* Office Hours */}
-              <div className="flex gap-4">
-                <div className="p-3 bg-brand-secondary/10 rounded-lg h-fit">
-                  <Clock className="w-6 h-6 text-brand-secondary" />
+              <div className="flex gap-5 bg-gradient-to-br from-white to-brand-light/30 p-6 rounded-2xl shadow-lg border border-neutral-200/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="p-4 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl h-fit">
+                  <Clock className="w-7 h-7 text-brand-secondary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-neutral-900 mb-2">Office Hours</h3>
+                  <h3 className="font-bold text-brand-navy mb-3 text-lg">Office Hours</h3>
                   <p className="text-neutral-600 text-sm">
                     {settings.businessHours?.workingDays}: {settings.businessHours?.workingHours}
                     <br />

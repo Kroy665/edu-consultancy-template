@@ -85,16 +85,28 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
   }
 
   return (
-    <section className="py-16 bg-white">
-      <div className="section-container">
+    <section className="py-20 bg-gradient-to-b from-white via-brand-light/30 to-white relative overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-10 left-10 w-80 h-80 bg-brand-secondary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-brand-accent/10 rounded-full blur-3xl" />
+
+      <div className="section-container relative z-10">
         <motion.h2
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           variants={titleVariants}
-          className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-primary"
+          className="text-4xl md:text-5xl font-serif text-center mb-4"
         >
-          What Our Students Say
+          <span className="gradient-text">What Our Students</span> <span className="text-brand-navy">Say</span>
         </motion.h2>
+        <motion.p
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={titleVariants}
+          className="text-center text-neutral-600 mb-16 max-w-2xl mx-auto"
+        >
+          Real success stories from students who transformed their careers with us
+        </motion.p>
 
         <motion.div
           ref={ref}
@@ -120,12 +132,14 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                 key={testimonial.id}
                 variants={cardVariants}
                 whileHover={{
-                  y: -10,
-                  scale: 1.02,
+                  y: -12,
+                  scale: 1.03,
                   transition: { duration: 0.3, ease: 'easeOut' as const },
                 }}
-                className="bg-brand-light rounded-xl p-6 border border-neutral-200 hover:border-brand-secondary hover:shadow-lg transition-all duration-300"
+                className="bg-gradient-to-br from-white to-brand-light/50 rounded-2xl p-7 border border-neutral-200/60 hover:border-brand-secondary/50 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
               >
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary/0 to-brand-accent/0 group-hover:from-brand-secondary/5 group-hover:to-brand-accent/5 transition-all duration-300 rounded-2xl" />
                 {/* Student Photo/Avatar */}
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -139,35 +153,35 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                     duration: 0.4,
                     ease: 'easeOut' as const,
                   }}
-                  className="flex items-center gap-3 mb-4"
+                  className="flex items-center gap-3 mb-4 relative z-10"
                 >
                   {photoUrl ? (
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-brand-secondary/20">
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-brand-secondary/30 group-hover:ring-brand-secondary transition-all duration-300">
                       <Image
                         src={photoUrl}
                         alt={testimonial.studentName}
                         fill
-                        sizes="48px"
+                        sizes="56px"
                         className="object-cover"
                       />
                     </div>
                   ) : (
-                    <div className="w-12 h-12 rounded-full bg-brand-secondary/10 flex items-center justify-center flex-shrink-0 ring-2 ring-brand-secondary/20">
-                      <span className="text-brand-secondary font-semibold text-sm">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 flex items-center justify-center flex-shrink-0 ring-2 ring-brand-secondary/30 group-hover:ring-brand-secondary transition-all duration-300">
+                      <span className="text-brand-secondary font-bold text-base">
                         {initials}
                       </span>
                     </div>
                   )}
                   <div>
-                    <p className="font-semibold text-neutral-900">
+                    <p className="font-bold text-brand-navy group-hover:text-brand-secondary transition-colors">
                       {testimonial.studentName}
                     </p>
-                    <p className="text-xs text-neutral-600">{testimonial.course}</p>
+                    <p className="text-sm text-neutral-600">{testimonial.course}</p>
                   </div>
                 </motion.div>
 
                 {/* Rating */}
-                <div className="flex gap-1 mb-3">
+                <div className="flex gap-1 mb-4 relative z-10">
                   {[...Array(testimonial.rating || 5)].map((_, i) => (
                     <motion.div
                       key={i}
@@ -176,7 +190,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                       initial="hidden"
                       animate={isInView ? 'visible' : 'hidden'}
                     >
-                      <Star className="w-4 h-4 fill-brand-secondary text-brand-secondary" />
+                      <Star className="w-5 h-5 fill-brand-secondary text-brand-secondary drop-shadow-sm" />
                     </motion.div>
                   ))}
                 </div>
@@ -191,9 +205,10 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                     delay: 0.4 + index * 0.15,
                     duration: 0.5,
                   }}
-                  className="text-neutral-700 text-sm italic leading-relaxed"
+                  className="text-neutral-700 text-base italic leading-relaxed relative z-10 pl-6"
                 >
-                  &ldquo;{testimonial.quote}&rdquo;
+                  <span className="absolute -left-2 -top-4 text-6xl text-brand-secondary/20 font-serif">&ldquo;</span>
+                  {testimonial.quote}&rdquo;
                 </motion.p>
               </motion.div>
             )

@@ -20,13 +20,19 @@ export default async function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-20">
-        <div className="section-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-serif mb-6">
-              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.aboutPage.headerTitle}
+      <section className="bg-gradient-to-br from-brand-navy via-brand-primary to-brand-navy text-white py-24 relative overflow-hidden animate-gradient">
+        {/* Decorative Elements */}
+        <div className="absolute top-10 right-10 w-96 h-96 bg-brand-secondary/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 left-10 w-80 h-80 bg-brand-accent/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+
+        <div className="section-container relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif mb-6 leading-tight">
+              <span className="gradient-text drop-shadow-lg">
+                {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.aboutPage.headerTitle}
+              </span>
             </h1>
-            <p className="text-lg text-white/90">
+            <p className="text-xl md:text-2xl text-white/95 font-medium">
               {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.aboutPage.headerSubtitle}
             </p>
           </div>
@@ -34,14 +40,18 @@ export default async function AboutPage() {
       </section>
 
       {/* About the Institute */}
-      <section className="py-16 bg-white">
-        <div className="section-container">
+      <section className="py-20 bg-gradient-to-b from-white via-brand-light/20 to-white relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute top-20 left-0 w-96 h-96 bg-brand-secondary/5 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-serif text-brand-primary mb-6">
-                Your Trusted Education Partner
+              <h2 className="text-4xl md:text-5xl font-serif mb-6">
+                <span className="gradient-text-navy">Your Trusted</span><br />
+                <span className="text-brand-navy">Education Partner</span>
               </h2>
-              <div className="space-y-4 text-neutral-700">
+              <div className="space-y-4 text-neutral-700 text-lg leading-relaxed">
                 <p>
                   Nibedita Institute & Management is a leading educational consultancy based in
                   Dhupguri, West Bengal. Since our inception, we have been dedicated to guiding
@@ -62,11 +72,20 @@ export default async function AboutPage() {
                 </p>
               </div>
             </div>
-            <div className="bg-brand-light rounded-xl p-8">
-              <div className="aspect-video bg-gradient-to-br from-brand-primary to-brand-secondary rounded-lg flex items-center justify-center">
-                <div className="text-white text-center">
-                  <Award className="w-20 h-20 mx-auto mb-4" />
-                  <p className="text-xl font-semibold">10+ Years of Excellence</p>
+            <div className="bg-gradient-to-br from-white to-brand-light/50 rounded-3xl p-8 shadow-2xl border border-neutral-200/60 hover:shadow-gold hover:-translate-y-2 transition-all duration-500 group">
+              <div className="aspect-video bg-gradient-to-br from-brand-secondary via-brand-accent to-brand-secondary rounded-2xl flex items-center justify-center relative overflow-hidden animate-gradient">
+                <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent" />
+
+                {/* Animated sparkle effect */}
+                <div className="absolute top-4 right-4 w-2 h-2 bg-white/80 rounded-full animate-ping" />
+                <div className="absolute bottom-6 left-6 w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                <div className="absolute top-1/3 right-8 w-1 h-1 bg-white/70 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+
+                <div className="text-white text-center relative z-10">
+                  <div className="inline-flex items-center justify-center w-24 h-24 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                    <Award className="w-14 h-14 group-hover:scale-110 transition-transform duration-500" />
+                  </div>
+                  <p className="text-2xl font-bold drop-shadow-lg group-hover:scale-105 transition-transform duration-300">10+ Years of Excellence</p>
                 </div>
               </div>
             </div>
@@ -75,16 +94,20 @@ export default async function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-16 bg-brand-light">
-        <div className="section-container">
+      <section className="py-20 bg-gradient-to-b from-brand-light/40 via-brand-orange/20 to-brand-light/40 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-10 right-10 w-80 h-80 bg-brand-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-80 h-80 bg-brand-accent/10 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Mission */}
-            <div className="bg-white rounded-xl p-8 border-l-4 border-brand-secondary">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-brand-secondary/10 rounded-lg">
-                  <Target className="w-8 h-8 text-brand-secondary" />
+            <div className="bg-gradient-to-br from-white to-brand-light/30 rounded-2xl p-8 shadow-xl border border-brand-secondary/30 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-4 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                  <Target className="w-10 h-10 text-brand-secondary" />
                 </div>
-                <h2 className="text-2xl font-serif text-brand-primary">Our Mission</h2>
+                <h2 className="text-3xl font-serif gradient-text">Our Mission</h2>
               </div>
               <p className="text-neutral-700">
                 To provide accessible, reliable, and personalized educational guidance to every
@@ -96,12 +119,12 @@ export default async function AboutPage() {
             </div>
 
             {/* Vision */}
-            <div className="bg-white rounded-xl p-8 border-l-4 border-brand-primary">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-brand-primary/10 rounded-lg">
-                  <Eye className="w-8 h-8 text-brand-primary" />
+            <div className="bg-gradient-to-br from-white to-brand-light/30 rounded-2xl p-8 shadow-xl border border-brand-navy/30 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-4 bg-gradient-to-br from-brand-navy/20 to-brand-primary/20 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                  <Eye className="w-10 h-10 text-brand-navy" />
                 </div>
-                <h2 className="text-2xl font-serif text-brand-primary">Our Vision</h2>
+                <h2 className="text-3xl font-serif gradient-text-navy">Our Vision</h2>
               </div>
               <p className="text-neutral-700">
                 To become the most trusted and preferred educational consultancy in West Bengal and
@@ -115,18 +138,27 @@ export default async function AboutPage() {
       </section>
 
       {/* Director's Message */}
-      <section className="py-16 bg-white">
-        <div className="section-container">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-brand-light rounded-xl p-8 md:p-12">
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-                <div className="w-32 h-32 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center flex-shrink-0">
-                  <Users className="w-16 h-16 text-white" />
+      <section className="py-20 bg-gradient-to-b from-white to-brand-light/30 relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gradient-to-br from-white to-brand-light/50 rounded-3xl p-10 md:p-14 shadow-2xl border border-neutral-200/60">
+              <div className="flex flex-col md:flex-row gap-10 items-start">
+                <div className="w-36 h-36 bg-gradient-to-br from-brand-secondary via-brand-accent to-brand-secondary rounded-2xl flex items-center justify-center flex-shrink-0 shadow-gold animate-gradient relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-transparent" />
+                  <div className="w-28 h-28 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <Users className="w-14 h-14 text-white" />
+                  </div>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-serif text-brand-primary mb-2">Director's Message</h2>
-                  <p className="text-sm text-neutral-600 mb-4">Founder & Director</p>
-                  <blockquote className="text-neutral-700 italic border-l-4 border-brand-secondary pl-4">
+                  <h2 className="text-3xl md:text-4xl font-serif mb-2">
+                    <span className="gradient-text">Director's Message</span>
+                  </h2>
+                  <p className="text-base text-brand-navy font-semibold mb-6">Founder & Director</p>
+                  <blockquote className="text-neutral-700 text-lg italic leading-relaxed pl-6 border-l-4 border-brand-secondary relative">
+                    <span className="absolute -left-4 -top-4 text-6xl text-brand-secondary/20 font-serif">"</span>
                     "Education is the foundation of a successful future. At Nibedita Institute, we
                     are committed to helping each student find their path to success. Our approach
                     is not just about securing admissions; it's about understanding each student's
@@ -142,12 +174,19 @@ export default async function AboutPage() {
       </section>
 
       {/* Why Students Choose Us */}
-      <section className="py-16 bg-brand-light">
-        <div className="section-container">
-          <h2 className="text-3xl md:text-4xl font-serif text-center mb-12 text-brand-primary">
-            Why Students Choose Us
+      <section className="py-20 bg-gradient-to-b from-white via-brand-light/30 to-white relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
+          <h2 className="text-4xl md:text-5xl font-serif text-center mb-4">
+            <span className="gradient-text">Why Students</span> <span className="text-brand-navy">Choose Us</span>
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <p className="text-center text-neutral-600 mb-16 max-w-2xl mx-auto text-lg">
+            Discover what makes us the preferred choice for students across West Bengal
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 icon: Users,
@@ -190,11 +229,16 @@ export default async function AboutPage() {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-xl p-6 border-l-4 border-brand-secondary"
+                  className="bg-gradient-to-br from-white to-brand-light/30 rounded-2xl p-7 shadow-lg border border-neutral-200/60 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden"
                 >
-                  <Icon className="w-10 h-10 text-brand-secondary mb-4" />
-                  <h3 className="text-lg font-semibold text-neutral-900 mb-2">{item.title}</h3>
-                  <p className="text-neutral-600 text-sm">{item.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary/0 to-brand-accent/0 group-hover:from-brand-secondary/5 group-hover:to-brand-accent/5 transition-all duration-300 rounded-2xl" />
+                  <div className="relative z-10">
+                    <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl mb-5 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-8 h-8 text-brand-secondary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-brand-navy mb-3 group-hover:text-brand-secondary transition-colors">{item.title}</h3>
+                    <p className="text-neutral-600 leading-relaxed">{item.description}</p>
+                  </div>
                 </div>
               )
             })}
@@ -203,20 +247,28 @@ export default async function AboutPage() {
       </section>
 
       {/* Certifications & Registrations */}
-      <section className="py-16 bg-white">
-        <div className="section-container">
-          <h2 className="text-3xl font-serif text-center mb-12 text-brand-primary">
-            Certifications & Registrations
+      <section className="py-20 bg-gradient-to-b from-brand-light/50 to-white relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-10 right-0 w-80 h-80 bg-brand-secondary/10 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
+          <h2 className="text-4xl md:text-5xl font-serif text-center mb-4">
+            <span className="text-brand-navy">Certifications &</span> <span className="gradient-text">Registrations</span>
           </h2>
+          <p className="text-center text-neutral-600 mb-16 max-w-2xl mx-auto text-lg">
+            Recognized and certified by leading educational authorities
+          </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {['Registered Consultancy', 'Verified Partner', 'ISO Certified', 'Member of IACEA'].map(
               (cert, index) => (
                 <div
                   key={index}
-                  className="bg-brand-light rounded-xl p-6 text-center border border-neutral-200"
+                  className="bg-gradient-to-br from-white to-brand-light/40 rounded-2xl p-8 text-center border border-neutral-200/60 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group"
                 >
-                  <Award className="w-12 h-12 text-brand-secondary mx-auto mb-3" />
-                  <p className="font-semibold text-neutral-900 text-sm">{cert}</p>
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <Award className="w-10 h-10 text-brand-secondary" />
+                  </div>
+                  <p className="font-bold text-brand-navy text-base group-hover:text-brand-secondary transition-colors">{cert}</p>
                 </div>
               )
             )}

@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { Button } from '@/components/ui/Button'
 import { RichText } from '@/components/RichText'
+import { PageHeader } from '@/components/layout/PageHeader'
 import {
   Users,
   Target,
@@ -61,21 +62,16 @@ export default async function ServicesPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-brand-primary to-brand-primary/80 text-white py-12 sm:py-16">
-        <div className="section-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-4 sm:mb-6">
-              {pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.servicesPage.headerTitle}
-            </h1>
-            <p className="text-base sm:text-lg text-white/90">
-              {pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.servicesPage.headerSubtitle}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        title={pageSettings?.headerTitle || DEFAULT_SITE_SETTINGS.pages.servicesPage.headerTitle}
+        subtitle={pageSettings?.headerSubtitle || DEFAULT_SITE_SETTINGS.pages.servicesPage.headerSubtitle}
+      />
 
       {/* Services Grid */}
-      <section className="py-8 sm:py-12 md:py-16 bg-white">
+      <section className="py-20 bg-gradient-to-b from-white via-brand-light/20 to-white relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute top-20 left-0 w-96 h-96 bg-brand-secondary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl" />
         <div className="section-container">
           {services.length === 0 ? (
             <div className="text-center py-12">
@@ -92,13 +88,11 @@ export default async function ServicesPage() {
                   return (
                     <div
                       key={service.id}
-                      className={`rounded-xl border border-neutral-200 overflow-hidden p-4 ${
-                        isEven ? 'bg-white' : 'bg-brand-light'
-                      }`}
+                      className="bg-gradient-to-br from-white to-brand-light/30 rounded-2xl border border-neutral-200/60 overflow-hidden p-5 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
                     >
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="p-1.5 bg-brand-secondary/10 rounded-lg">
-                          <Icon className="w-4 h-4 text-brand-secondary" />
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-xl">
+                          <Icon className="w-5 h-5 text-brand-secondary" />
                         </div>
                         <h2 className="text-lg font-serif text-brand-primary">
                           {service.name}
@@ -140,14 +134,12 @@ export default async function ServicesPage() {
                   return (
                     <div
                       key={service.id}
-                      className={`rounded-xl border border-neutral-200 overflow-hidden ${
-                        isEven ? 'bg-white' : 'bg-brand-light'
-                      }`}
+                      className="bg-gradient-to-br from-white to-brand-light/30 rounded-3xl border border-neutral-200/60 overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group"
                     >
-                      <div className="p-6 md:p-8">
+                      <div className="p-8 md:p-10">
                         <div className="flex items-start gap-6">
-                          <div className="p-4 bg-brand-secondary/10 rounded-lg flex-shrink-0">
-                            <Icon className="w-8 h-8 text-brand-secondary" />
+                          <div className="p-5 bg-gradient-to-br from-brand-secondary/20 to-brand-accent/20 rounded-2xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <Icon className="w-10 h-10 text-brand-secondary" />
                           </div>
                           <div className="flex-1">
                             <h2 className="text-2xl font-serif text-brand-primary mb-2">
@@ -187,11 +179,14 @@ export default async function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 bg-brand-secondary text-white">
-        <div className="section-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl font-serif mb-3 sm:mb-4">Ready to Get Started?</h2>
-            <p className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8">
+      <section className="py-20 bg-gradient-to-br from-brand-secondary via-brand-accent to-brand-secondary text-white relative overflow-hidden animate-gradient">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent" />
+        <div className="absolute top-10 right-10 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6 drop-shadow-lg">Ready to Get Started?</h2>
+            <p className="text-xl md:text-2xl text-white/95 mb-10 font-medium">
               Book a free consultation session with our expert counsellors today. No obligations,
               just genuine guidance.
             </p>
@@ -218,20 +213,22 @@ export default async function ServicesPage() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-8 sm:py-12 bg-brand-light">
-        <div className="section-container">
-          <div className="grid grid-cols-3 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 text-center">
-            <div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-primary mb-1 sm:mb-2">100%</div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-600">Transparent Process</p>
+      <section className="py-16 bg-gradient-to-b from-brand-light/50 to-white relative overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10">
+          <div className="grid grid-cols-3 gap-8 text-center">
+            <div className="bg-gradient-to-br from-white to-brand-light/40 rounded-2xl p-8 shadow-lg border border-neutral-200/60 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+              <div className="text-4xl md:text-5xl font-bold gradient-text mb-3">100%</div>
+              <p className="text-sm md:text-base text-brand-navy font-semibold">Transparent Process</p>
             </div>
-            <div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-primary mb-1 sm:mb-2">Zero</div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-600">Hidden Charges</p>
+            <div className="bg-gradient-to-br from-white to-brand-light/40 rounded-2xl p-8 shadow-lg border border-neutral-200/60 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+              <div className="text-4xl md:text-5xl font-bold gradient-text mb-3">Zero</div>
+              <p className="text-sm md:text-base text-brand-navy font-semibold">Hidden Charges</p>
             </div>
-            <div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-primary mb-1 sm:mb-2">24/7</div>
-              <p className="text-xs sm:text-sm md:text-base text-neutral-600">Support Available</p>
+            <div className="bg-gradient-to-br from-white to-brand-light/40 rounded-2xl p-8 shadow-lg border border-neutral-200/60 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+              <div className="text-4xl md:text-5xl font-bold gradient-text mb-3">24/7</div>
+              <p className="text-sm md:text-base text-brand-navy font-semibold">Support Available</p>
             </div>
           </div>
         </div>

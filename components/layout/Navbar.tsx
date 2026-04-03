@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown, Search } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import type { Media } from '@/payload/payload-types'
@@ -27,6 +28,7 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +40,14 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
 
   // Get logo URL
   const logoUrl = siteLogo && typeof siteLogo === 'object' ? (siteLogo as Media).url : null
+
+  // Helper function to check if a link is active
+  const isActiveLink = (path: string) => {
+    if (path === '/') {
+      return pathname === '/'
+    }
+    return pathname.startsWith(path)
+  }
 
   return (
     <nav
@@ -71,13 +81,17 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
           <div className="hidden lg:flex items-center space-x-8">
             <Link
               href="/"
-              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              className={`text-brand-navy hover:text-brand-secondary transition-colors duration-200 ${
+                isActiveLink('/') ? 'text-brand-secondary font-semibold border-b-2 border-brand-secondary' : ''
+              }`}
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              className={`text-brand-navy hover:text-brand-secondary transition-colors duration-200 ${
+                isActiveLink('/about') ? 'text-brand-secondary font-semibold border-b-2 border-brand-secondary' : ''
+              }`}
             >
               About
             </Link>
@@ -88,7 +102,9 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
               onMouseEnter={() => setIsCoursesDropdownOpen(true)}
               onMouseLeave={() => setIsCoursesDropdownOpen(false)}
             >
-              <button className="flex items-center space-x-1 text-brand-navy hover:text-brand-secondary transition-colors duration-200">
+              <button className={`flex items-center space-x-1 text-brand-navy hover:text-brand-secondary transition-colors duration-200 ${
+                isActiveLink('/courses') ? 'text-brand-secondary font-semibold border-b-2 border-brand-secondary' : ''
+              }`}>
                 <span>Courses</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
@@ -98,7 +114,9 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
                     <Link
                       key={category.slug}
                       href={`/courses/${category.slug}`}
-                      className="block px-4 py-2 text-brand-navy hover:bg-brand-light hover:text-brand-secondary transition-colors duration-150"
+                      className={`block px-4 py-2 text-brand-navy hover:bg-brand-light hover:text-brand-secondary transition-colors duration-150 ${
+                        pathname === `/courses/${category.slug}` ? 'bg-brand-light text-brand-secondary font-semibold' : ''
+                      }`}
                     >
                       {category.name}
                     </Link>
@@ -109,25 +127,33 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
 
             <Link
               href="/services"
-              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              className={`text-brand-navy hover:text-brand-secondary transition-colors duration-200 ${
+                isActiveLink('/services') ? 'text-brand-secondary font-semibold border-b-2 border-brand-secondary' : ''
+              }`}
             >
               Services
             </Link>
             <Link
               href="/student-corner"
-              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              className={`text-brand-navy hover:text-brand-secondary transition-colors duration-200 ${
+                isActiveLink('/student-corner') ? 'text-brand-secondary font-semibold border-b-2 border-brand-secondary' : ''
+              }`}
             >
               Student Corner
             </Link>
             <Link
               href="/blog"
-              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              className={`text-brand-navy hover:text-brand-secondary transition-colors duration-200 ${
+                isActiveLink('/blog') ? 'text-brand-secondary font-semibold border-b-2 border-brand-secondary' : ''
+              }`}
             >
               Blog
             </Link>
             <Link
               href="/contact"
-              className="text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              className={`text-brand-navy hover:text-brand-secondary transition-colors duration-200 ${
+                isActiveLink('/contact') ? 'text-brand-secondary font-semibold border-b-2 border-brand-secondary' : ''
+              }`}
             >
               Contact
             </Link>
@@ -173,14 +199,18 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
           <div className="section-container py-4 space-y-4">
             <Link
               href="/"
-              className="block py-2 text-brand-navy hover:text-brand-secondary"
+              className={`block py-2 text-brand-navy hover:text-brand-secondary ${
+                isActiveLink('/') ? 'text-brand-secondary font-semibold border-l-4 border-brand-secondary pl-2' : ''
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="block py-2 text-brand-navy hover:text-brand-secondary"
+              className={`block py-2 text-brand-navy hover:text-brand-secondary ${
+                isActiveLink('/about') ? 'text-brand-secondary font-semibold border-l-4 border-brand-secondary pl-2' : ''
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               About
@@ -190,7 +220,9 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
             <div>
               <button
                 onClick={() => setIsCoursesDropdownOpen(!isCoursesDropdownOpen)}
-                className="flex items-center justify-between w-full py-2 text-brand-navy"
+                className={`flex items-center justify-between w-full py-2 text-brand-navy ${
+                  isActiveLink('/courses') ? 'text-brand-secondary font-semibold border-l-4 border-brand-secondary pl-2' : ''
+                }`}
               >
                 <span>Courses</span>
                 <ChevronDown
@@ -205,7 +237,9 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
                     <Link
                       key={category.slug}
                       href={`/courses/${category.slug}`}
-                      className="block py-2 text-sm text-brand-navy hover:text-brand-secondary"
+                      className={`block py-2 text-sm text-brand-navy hover:text-brand-secondary ${
+                        pathname === `/courses/${category.slug}` ? 'text-brand-secondary font-semibold border-l-2 border-brand-secondary pl-2' : ''
+                      }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {category.name}
@@ -217,28 +251,36 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
 
             <Link
               href="/services"
-              className="block py-2 text-brand-navy hover:text-brand-secondary"
+              className={`block py-2 text-brand-navy hover:text-brand-secondary ${
+                isActiveLink('/services') ? 'text-brand-secondary font-semibold border-l-4 border-brand-secondary pl-2' : ''
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Services
             </Link>
             <Link
               href="/student-corner"
-              className="block py-2 text-brand-navy hover:text-brand-secondary"
+              className={`block py-2 text-brand-navy hover:text-brand-secondary ${
+                isActiveLink('/student-corner') ? 'text-brand-secondary font-semibold border-l-4 border-brand-secondary pl-2' : ''
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Student Corner
             </Link>
             <Link
               href="/blog"
-              className="block py-2 text-brand-navy hover:text-brand-secondary"
+              className={`block py-2 text-brand-navy hover:text-brand-secondary ${
+                isActiveLink('/blog') ? 'text-brand-secondary font-semibold border-l-4 border-brand-secondary pl-2' : ''
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Blog
             </Link>
             <Link
               href="/contact"
-              className="block py-2 text-brand-navy hover:text-brand-secondary"
+              className={`block py-2 text-brand-navy hover:text-brand-secondary ${
+                isActiveLink('/contact') ? 'text-brand-secondary font-semibold border-l-4 border-brand-secondary pl-2' : ''
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact

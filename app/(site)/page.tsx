@@ -6,10 +6,8 @@ import { EnquiryForm } from '@/components/sections/EnquiryForm'
 import { WhyChooseUs } from '@/components/sections/WhyChooseUs'
 import { CourseCategoriesGrid } from '@/components/sections/CourseCategoriesGrid'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
-import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
+import { HeroBannerCarousel } from '@/components/sections/HeroBannerCarousel'
 import { MapPin, Phone, Mail } from 'lucide-react'
-import Image from 'next/image'
 import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
 export const revalidate = 60;
@@ -72,7 +70,7 @@ export default async function HomePage() {
   // Parse address lines
   const addressLines = settings.contactInfo?.address?.split('\n') || []
 
-  // Fetch active banners
+  // Fetch all active banners for carousel
   const { docs: banners } = await payload.find({
     collection: 'banners',
     where: {
@@ -80,11 +78,9 @@ export default async function HomePage() {
         equals: true,
       },
     },
-    limit: 1,
+    limit: 10,
     sort: 'order',
   })
-
-  const activeBanner = banners[0] as Banner | undefined
 
   // Fetch featured testimonials
   const { docs: testimonials } = await payload.find({
@@ -100,61 +96,51 @@ export default async function HomePage() {
 
   const featuredTestimonials = testimonials as Testimonial[]
 
-  // Get background image URL if exists
-  let backgroundImageUrl = ''
-  if (activeBanner?.backgroundImage) {
-    const mediaId = typeof activeBanner.backgroundImage === 'string'
-      ? activeBanner.backgroundImage
-      : activeBanner.backgroundImage.id
+  // Process banners for carousel
+  const bannerSlides = await Promise.all(
+    banners.map(async (banner) => {
+      const typedBanner = banner as Banner
+      let backgroundImage = null
 
-    const media = await payload.findByID({
-      collection: 'media',
-      id: mediaId,
-    }) as Media
+      if (typedBanner.backgroundImage) {
+        const mediaId = typeof typedBanner.backgroundImage === 'string'
+          ? typedBanner.backgroundImage
+          : typedBanner.backgroundImage.id
 
-    backgroundImageUrl = media?.url || ''
-  }
+        try {
+          const media = await payload.findByID({
+            collection: 'media',
+            id: mediaId,
+          }) as Media
+
+          if (media?.url) {
+            backgroundImage = {
+              url: media.url,
+              alt: media.alt || typedBanner.headline || 'Banner image',
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching banner image:', error)
+        }
+      }
+
+      return {
+        id: typedBanner.id,
+        headline: typedBanner.headline || 'Admissions Open 2026 — Secure Your Future',
+        subheadline: typedBanner.subheadline || 'Expert guidance for Nursing, Engineering, Pharmacy, MBA & 100+ more courses',
+        excerpt: typedBanner.excerpt || undefined,
+        ctaText: typedBanner.ctaText || 'Apply Now',
+        ctaLink: typedBanner.ctaLink || '/admission',
+        secondaryCtaText: typedBanner.secondaryCtaText || undefined,
+        secondaryCtaLink: typedBanner.secondaryCtaLink || undefined,
+        backgroundImage,
+      }
+    })
+  )
   return (
     <>
-      {/* Hero Banner */}
-      <section aria-label="Hero Banner" className="relative min-h-screen flex items-center bg-gradient-to-br from-brand-navy to-brand-navy/80">
-        {backgroundImageUrl && (
-          <Image
-            src={backgroundImageUrl}
-            alt={`${activeBanner?.headline || 'Nibedita Institute Educational Consultancy'} - Banner Image`}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
-        )}
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="section-container relative z-10 text-white py-20">
-          <div className="max-w-3xl">
-            {activeBanner?.excerpt && (
-              <Badge variant="secondary" className="mb-6 inline-block">
-                {activeBanner.excerpt}
-              </Badge>
-            )}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 leading-tight text-brand-accent">
-              {activeBanner?.headline || 'Admissions Open 2026 — Secure Your Future'}
-            </h1>
-            <p className="text-lg md:text-xl mb-8 text-white/90">
-              {activeBanner?.subheadline || 'Expert guidance for Nursing, Engineering, Pharmacy, MBA & 100+ more courses'}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button href={activeBanner?.ctaLink || '/admission'} variant="primary" size="lg">
-                {activeBanner?.ctaText || 'Apply Now'}
-              </Button>
-              {activeBanner?.secondaryCtaText && activeBanner?.secondaryCtaLink && (
-                <Button href={activeBanner.secondaryCtaLink} variant="outline" size="lg" className="bg-white/10 border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-brand-navy">
-                  {activeBanner.secondaryCtaText}
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Banner Carousel */}
+      <HeroBannerCarousel banners={bannerSlides} autoPlayInterval={6000} />
 
       {/* Course Categories Grid */}
       <CourseCategoriesGrid categories={courseCategories} />

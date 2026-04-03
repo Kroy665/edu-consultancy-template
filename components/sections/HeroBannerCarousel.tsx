@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import type { Banner, Media } from '@/payload/payload-types'
 
 interface BannerSlide {
   id: string

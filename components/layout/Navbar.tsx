@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, Search } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import type { Media } from '@/payload/payload-types'
 
@@ -133,21 +133,37 @@ export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProp
             </Link>
           </div>
 
-          {/* CTA Button (Desktop) */}
-          <div className="hidden lg:block">
+          {/* Search & CTA Buttons (Desktop) */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link
+              href="/search"
+              className="p-2 text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </Link>
             <Button href="/admission" variant="primary" size="sm">
               Enquire Now
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-neutral-800 hover:text-brand-primary"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Buttons */}
+          <div className="flex lg:hidden items-center gap-2">
+            <Link
+              href="/search"
+              className="p-2 text-brand-navy hover:text-brand-secondary transition-colors duration-200"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </Link>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-brand-navy hover:text-brand-secondary"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
 

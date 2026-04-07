@@ -2,6 +2,7 @@ import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -40,6 +41,11 @@ export default buildConfig({
       maxPoolSize: 10,
       minPoolSize: 2,
     },
+  }),
+  email: resendAdapter({
+    defaultFromAddress: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+    defaultFromName: 'Nibedita Institute',
+    apiKey: process.env.RESEND_API_KEY || '',
   }),
   sharp,
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',

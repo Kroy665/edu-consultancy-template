@@ -6,7 +6,8 @@ import { Heart } from 'lucide-react'
 import { CoursePageTemplate } from '@/components/course/CoursePageTemplate'
 import { getCourseCategorySettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const revalidate = 60
+// Revalidate every 30 minutes (1800 seconds)
+export const revalidate = 1800
 
 export async function generateMetadata(): Promise<Metadata> {
   const categorySettings = await getCourseCategorySettings('nursing')

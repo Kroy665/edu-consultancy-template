@@ -4,11 +4,14 @@ import { Badge } from '@/components/ui/Badge'
 import { CheckCircle, FileText, GraduationCap, UserCheck, Award } from 'lucide-react'
 import { getPageSettings, DEFAULT_SITE_SETTINGS, type AdmissionPageSettings } from '@/lib/getSiteSettings'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageSettings = await getPageSettings('admissionPage')
 
   return {
-    title: pageSettings?.metaTitle || 'Admission Process | Nibedita Institute',
+    title: pageSettings?.metaTitle || 'Admission Process | EduConsult Pro',
     description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.admissionPage.metaDescription,
   }
 }
@@ -295,10 +298,10 @@ export default async function AdmissionPage() {
               <div>
                 <span className="text-white/70">Email:</span>{' '}
                 <a
-                  href="mailto:admissions@nibedita.in"
+                  href="mailto:admissions@yourdomain.com"
                   className="font-semibold hover:text-brand-secondary"
                 >
-                  admissions@nibedita.in
+                  admissions@yourdomain.com
                 </a>
               </div>
             </div>

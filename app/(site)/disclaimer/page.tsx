@@ -3,10 +3,13 @@ import Link from 'next/link'
 import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 import { RichText } from '@/components/RichText'
 
+// Legal pages change infrequently - revalidate once per day (86400 seconds)
+export const revalidate = 86400
+
 export const metadata: Metadata = {
   title: 'Disclaimer',
   description:
-    'Disclaimer for Nibedita Institute & Management services. Important information about our educational consultancy services.',
+    'Disclaimer for EduConsult Pro services. Important information about our educational consultancy services.',
 }
 
 export default async function DisclaimerPage() {
@@ -46,7 +49,7 @@ export default async function DisclaimerPage() {
               <>
             <h2>General Disclaimer</h2>
             <p>
-              The information provided by Nibedita Institute & Management ("we," "our," or "us") on our
+              The information provided by EduConsult Pro ("we," "our," or "us") on our
               website and through our services is for general informational and educational purposes
               only. While we strive to provide accurate and up-to-date information, we make no
               representations or warranties of any kind, express or implied, about the completeness,
@@ -55,7 +58,7 @@ export default async function DisclaimerPage() {
 
             <h2>No Guarantee of Admission</h2>
             <p>
-              Nibedita Institute & Management is an <strong>educational consultancy service</strong> that
+              EduConsult Pro is an <strong>educational consultancy service</strong> that
               provides guidance and support for course selection and college admissions. We do not:
             </p>
             <ul>
@@ -177,7 +180,7 @@ export default async function DisclaimerPage() {
 
             <h2>Limitation of Liability</h2>
             <p>
-              To the fullest extent permitted by law, Nibedita Institute & Management, its directors,
+              To the fullest extent permitted by law, EduConsult Pro, its directors,
               employees, and affiliates shall not be liable for:
             </p>
             <ul>

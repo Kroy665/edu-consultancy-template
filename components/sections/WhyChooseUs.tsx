@@ -123,7 +123,7 @@ export function WhyChooseUs() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-4xl md:text-5xl font-serif text-center mb-4"
         >
-          <span className="gradient-text">Why Choose</span> <span className="text-brand-navy">Nibedita Institute</span>
+          <span className="gradient-text">Why Choose</span> <span className="text-brand-navy">EduConsult Pro</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}

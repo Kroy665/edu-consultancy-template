@@ -4,11 +4,14 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 import { getPageSettings, getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageSettings = await getPageSettings('contactPage')
 
   return {
-    title: pageSettings?.metaTitle || 'Contact Us | Nibedita Institute',
+    title: pageSettings?.metaTitle || 'Contact Us | EduConsult Pro',
     description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.contactPage.metaDescription,
   }
 }

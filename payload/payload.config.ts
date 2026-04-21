@@ -44,7 +44,7 @@ export default buildConfig({
   }),
   email: resendAdapter({
     defaultFromAddress: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-    defaultFromName: 'Nibedita Institute',
+    defaultFromName: 'EduConsult Pro',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
   sharp,
@@ -52,7 +52,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
-      titleSuffix: '— Nibedita CMS',
+      titleSuffix: '— Admin CMS',
       // favicon: '/favicon.ico',
     },
   },

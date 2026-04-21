@@ -1,5 +1,5 @@
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { cache } from 'react'
+import { getPayloadClient } from '@/lib/payload'
 import type { SiteSetting } from '@/payload/payload-types'
 
 // TypeScript interfaces for site settings structure
@@ -71,11 +71,11 @@ export interface ExtendedSiteSettings extends SiteSetting {
 /**
  * Fetch site settings from Payload CMS
  * Returns the first (and should be only) site settings document
- * This function is cached and can be called from Server Components
+ * This function is cached using React cache() to prevent duplicate queries per request
  */
-export async function getSiteSettings(): Promise<ExtendedSiteSettings | null> {
+const getSiteSettingsUncached = async (): Promise<ExtendedSiteSettings | null> => {
   try {
-    const payload = await getPayload({ config })
+    const payload = await getPayloadClient()
 
     const { docs } = await payload.find({
       collection: 'site-settings',
@@ -91,6 +91,9 @@ export async function getSiteSettings(): Promise<ExtendedSiteSettings | null> {
     return null
   }
 }
+
+// Export cached version to prevent duplicate database calls
+export const getSiteSettings = cache(getSiteSettingsUncached)
 
 /**
  * Helper function to get page-specific metadata

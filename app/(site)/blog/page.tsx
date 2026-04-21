@@ -8,16 +8,17 @@ import { Badge } from '@/components/ui/Badge'
 import { Calendar, User, ArrowRight } from 'lucide-react'
 import { getPageSettings, DEFAULT_SITE_SETTINGS, type BlogPageSettings } from '@/lib/getSiteSettings'
 
+// Revalidate every 30 minutes (1800 seconds)
+export const revalidate = 1800
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageSettings = await getPageSettings('blogPage')
 
   return {
-    title: pageSettings?.metaTitle || 'Blog | Nibedita Institute',
+    title: pageSettings?.metaTitle || 'Blog | EduConsult Pro',
     description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.blogPage.metaDescription,
   }
 }
-
-export const revalidate = 60;
 
 export default async function BlogPage() {
   const payload = await getPayload({ config })

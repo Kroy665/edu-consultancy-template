@@ -8,16 +8,17 @@ import { Button } from '@/components/ui/Button'
 import { Heart, Pill, Cpu, Award, Briefcase, GraduationCap, BookOpen, MoreHorizontal, Clock, LucideIcon } from 'lucide-react'
 import { getPageSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
+// Revalidate every 30 minutes (1800 seconds)
+export const revalidate = 1800
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageSettings = await getPageSettings('coursesPage')
 
   return {
-    title: pageSettings?.metaTitle || 'Explore All Programs | Nibedita Institute',
+    title: pageSettings?.metaTitle || 'Explore All Programs | EduConsult Pro',
     description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.coursesPage.metaDescription,
   }
 }
-
-export const revalidate = 60;
 
 const categoryIcons: Record<string, LucideIcon> = {
   nursing: Heart,

@@ -10,27 +10,28 @@ import { HeroBannerCarousel } from '@/components/sections/HeroBannerCarousel'
 import { MapPin, Phone, Mail } from 'lucide-react'
 import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const revalidate = 60;
+// Revalidate every minute (60 seconds) - home page has frequently changing content
+export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings()
   const settings = siteSettings || DEFAULT_SITE_SETTINGS
-  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.kroy.dev'
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://yourdomain.com'
 
   return {
-    title: `${settings.siteName} - Best Educational Consultancy in Dhupguri, West Bengal`,
-    description: siteSettings?.seo?.metaDescription || 'Leading educational consultancy in Dhupguri offering expert admission guidance for Nursing, Engineering, Pharmacy, MBA and 100+ courses. Free career counselling, scholarship assistance & placement support.',
+    title: `${settings.siteName} - Best Educational Consultancy Services`,
+    description: siteSettings?.seo?.metaDescription || 'Leading educational consultancy offering expert admission guidance for Nursing, Engineering, Pharmacy, MBA and 100+ courses. Free career counselling, scholarship assistance & placement support.',
     keywords: [
-      'educational consultancy dhupguri',
-      'admission guidance west bengal',
-      'nursing admission dhupguri',
-      'engineering admission jalpaiguri',
+      'educational consultancy',
+      'admission guidance',
+      'nursing admission',
+      'engineering admission',
       'career counselling',
       'education consultancy',
-      'nibedita institute',
+      'college admission help',
     ],
     openGraph: {
-      title: `${settings.siteName} - Best Educational Consultancy in Dhupguri`,
+      title: `${settings.siteName} - Best Educational Consultancy Services`,
       description: 'Expert guidance for Nursing, Engineering, Pharmacy, MBA & 100+ courses. Free counselling & placement support.',
       url: baseUrl,
       type: 'website',

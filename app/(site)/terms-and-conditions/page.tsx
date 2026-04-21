@@ -3,10 +3,13 @@ import Link from 'next/link'
 import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 import { RichText } from '@/components/RichText'
 
+// Legal pages change infrequently - revalidate once per day (86400 seconds)
+export const revalidate = 86400
+
 export const metadata: Metadata = {
   title: 'Terms and Conditions',
   description:
-    'Terms and Conditions for using Nibedita Institute & Management services. Please read carefully before using our services.',
+    'Terms and Conditions for using EduConsult Pro services. Please read carefully before using our services.',
 }
 
 export default async function TermsAndConditionsPage() {
@@ -43,13 +46,13 @@ export default async function TermsAndConditionsPage() {
               <>
             <h2>Agreement to Terms</h2>
             <p>
-              By accessing or using the services of Nibedita Institute & Management ("Company," "we,"
+              By accessing or using the services of EduConsult Pro ("Company," "we,"
               "our," or "us"), you agree to be bound by these Terms and Conditions. If you disagree
               with any part of these terms, you may not use our services.
             </p>
 
             <h2>Services Provided</h2>
-            <p>Nibedita Institute & Management provides educational consultancy services, including:</p>
+            <p>EduConsult Pro provides educational consultancy services, including:</p>
             <ul>
               <li>Career counselling and guidance</li>
               <li>Course and college selection support</li>
@@ -114,7 +117,7 @@ export default async function TermsAndConditionsPage() {
             <h2>Intellectual Property</h2>
             <p>
               All content on our website, including text, graphics, logos, and images, is the property
-              of Nibedita Institute & Management and is protected by copyright laws. You may not
+              of EduConsult Pro and is protected by copyright laws. You may not
               reproduce, distribute, or create derivative works without our written permission.
             </p>
 
@@ -137,13 +140,13 @@ export default async function TermsAndConditionsPage() {
 
             <h2>Indemnification</h2>
             <p>
-              You agree to indemnify and hold Nibedita Institute & Management harmless from any claims,
+              You agree to indemnify and hold EduConsult Pro harmless from any claims,
               damages, or expenses arising from your use of our services or violation of these terms.
             </p>
 
             <h2>Limitation of Liability</h2>
             <p>
-              To the maximum extent permitted by law, Nibedita Institute & Management shall not be
+              To the maximum extent permitted by law, EduConsult Pro shall not be
               liable for any indirect, incidental, special, or consequential damages arising from your
               use of our services.
             </p>
@@ -159,7 +162,7 @@ export default async function TermsAndConditionsPage() {
             <p>
               These Terms and Conditions shall be governed by and construed in accordance with the laws
               of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in
-              Jalpaiguri, West Bengal.
+              Your Region, Your State.
             </p>
 
             <h2>Severability</h2>
@@ -173,15 +176,15 @@ export default async function TermsAndConditionsPage() {
             <ul>
               <li>
                 <strong>Email:</strong>{' '}
-                <a href="mailto:info@nibedita.in" className="text-brand-secondary">
-                  info@nibedita.in
+                <a href="mailto:info@yourdomain.com" className="text-brand-secondary">
+                  info@yourdomain.com
                 </a>
               </li>
               <li>
                 <strong>Phone:</strong> +91 99999 99999
               </li>
               <li>
-                <strong>Address:</strong> Nibedita Institute & Management, Dhupguri, Jalpaiguri, West
+                <strong>Address:</strong> EduConsult Pro, Your City, Your Region, West
                 Bengal — 735210
               </li>
             </ul>

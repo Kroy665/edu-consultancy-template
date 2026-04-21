@@ -6,7 +6,7 @@ import { Cpu } from 'lucide-react'
 import { CoursePageTemplate } from '@/components/course/CoursePageTemplate'
 import { getCourseCategorySettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
-export const revalidate = 60
+export const revalidate = 1800  // 30 minutes
 
 export async function generateMetadata(): Promise<Metadata> {
   const categorySettings = await getCourseCategorySettings('btech')

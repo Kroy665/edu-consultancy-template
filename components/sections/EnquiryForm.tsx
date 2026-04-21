@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { enquirySchema, type EnquiryInput } from '@/lib/validations'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
@@ -25,6 +26,7 @@ interface EnquiryFormProps {
 }
 
 export function EnquiryForm({ source = 'home', className = '' }: EnquiryFormProps) {
+  const { executeRecaptcha } = useGoogleReCaptcha()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
   const [errorMessage, setErrorMessage] = useState('')
@@ -47,12 +49,23 @@ export function EnquiryForm({ source = 'home', className = '' }: EnquiryFormProp
     setErrorMessage('')
 
     try {
+      // Get reCAPTCHA token
+      let recaptchaToken: string | undefined
+      if (executeRecaptcha) {
+        try {
+          recaptchaToken = await executeRecaptcha('submit_enquiry')
+        } catch (error) {
+          console.error('reCAPTCHA error:', error)
+          // Continue without token if reCAPTCHA fails
+        }
+      }
+
       const response = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...data, source }),
+        body: JSON.stringify({ ...data, source, recaptchaToken }),
       })
 
       const result = await response.json()

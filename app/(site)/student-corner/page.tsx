@@ -8,16 +8,17 @@ import { HelpCircle, BookOpen, Bell, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import { getPageSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageSettings = await getPageSettings('studentCornerPage')
 
   return {
-    title: pageSettings?.metaTitle || 'Student Corner | Nibedita Institute',
+    title: pageSettings?.metaTitle || 'Student Corner | EduConsult Pro',
     description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.studentCornerPage.metaDescription,
   }
 }
-
-export const revalidate = 60;
 
 export default async function StudentCornerPage() {
   const payload = await getPayload({ config })

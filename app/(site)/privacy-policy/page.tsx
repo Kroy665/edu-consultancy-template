@@ -3,10 +3,13 @@ import Link from 'next/link'
 import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 import { RichText } from '@/components/RichText'
 
+// Legal pages change infrequently - revalidate once per day (86400 seconds)
+export const revalidate = 86400
+
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'Privacy Policy for Nibedita Institute & Management. Learn how we collect, use, and protect your personal information.',
+    'Privacy Policy for EduConsult Pro. Learn how we collect, use, and protect your personal information.',
 }
 
 export default async function PrivacyPolicyPage() {
@@ -46,7 +49,7 @@ export default async function PrivacyPolicyPage() {
               <>
             <h2>Introduction</h2>
             <p>
-              Welcome to Nibedita Institute & Management ("we," "our," or "us"). We are committed to
+              Welcome to EduConsult Pro ("we," "our," or "us"). We are committed to
               protecting your personal information and your right to privacy. This Privacy Policy
               explains how we collect, use, disclose, and safeguard your information when you visit
               our website or use our services.

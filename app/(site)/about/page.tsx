@@ -3,11 +3,14 @@ import { Target, Eye, Award, Users, Clock, Shield } from 'lucide-react'
 import Image from 'next/image'
 import { getPageSettings, getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageSettings = await getPageSettings('aboutPage')
 
   return {
-    title: pageSettings?.metaTitle || 'About Us | Nibedita Institute & Management',
+    title: pageSettings?.metaTitle || 'About Us | EduConsult Pro',
     description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.aboutPage.metaDescription,
   }
 }
@@ -53,8 +56,7 @@ export default async function AboutPage() {
               </h2>
               <div className="space-y-4 text-neutral-700 text-lg leading-relaxed">
                 <p>
-                  Nibedita Institute & Management is a leading educational consultancy based in
-                  Dhupguri, West Bengal. Since our inception, we have been dedicated to guiding
+                  EduConsult Pro is a leading educational consultancy dedicated to guiding
                   students through their educational journey, helping them find the right courses
                   and colleges that align with their career aspirations.
                 </p>
@@ -159,7 +161,7 @@ export default async function AboutPage() {
                   <p className="text-base text-brand-navy font-semibold mb-6">Founder & Director</p>
                   <blockquote className="text-neutral-700 text-lg italic leading-relaxed pl-6 border-l-4 border-brand-secondary relative">
                     <span className="absolute -left-4 -top-4 text-6xl text-brand-secondary/20 font-serif">"</span>
-                    "Education is the foundation of a successful future. At Nibedita Institute, we
+                    "Education is the foundation of a successful future. At EduConsult Pro, we
                     are committed to helping each student find their path to success. Our approach
                     is not just about securing admissions; it's about understanding each student's
                     unique aspirations and guiding them towards the right opportunities. We take

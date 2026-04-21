@@ -37,7 +37,7 @@ export function Footer({ siteSettings }: FooterProps) {
               {settings.siteTagline}
             </p>
             <p className="text-neutral-300 text-sm leading-relaxed">
-              Leading educational consultancy in Dhupguri, West Bengal, providing expert admission guidance and career counselling.
+              Leading educational consultancy providing expert admission guidance and career counselling services.
             </p>
           </div>
 

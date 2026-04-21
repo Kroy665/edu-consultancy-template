@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { sanitizeSearchQuery } from '@/lib/sanitize'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
+    // Rate limiting: 20 requests per minute per IP for search
+    const rateLimitCheck = await checkRateLimit(request, { limit: 20, window: 60 })
+    if (!rateLimitCheck.success) {
+      return rateLimitCheck.response!
+    }
+
     const searchParams = request.nextUrl.searchParams
     const query = searchParams.get('q')
 
@@ -17,8 +25,18 @@ export async function GET(request: NextRequest) {
       })
     }
 
+    // Sanitize search query to prevent injection attacks and ReDoS
+    const searchQuery = sanitizeSearchQuery(query)
+
+    if (searchQuery.length === 0) {
+      return NextResponse.json({
+        results: [],
+        totalResults: 0,
+        query: '',
+      })
+    }
+
     const payload = await getPayload({ config })
-    const searchQuery = query.trim()
 
     // Search across multiple collections
     const [courses, blogPosts, services, faqs] = await Promise.all([
@@ -165,7 +183,7 @@ export async function GET(request: NextRequest) {
         id: 'about-page',
         type: 'page',
         title: 'About Us',
-        description: 'Learn more about Nibedita Institute and our mission.',
+        description: 'Learn more about EduConsult Pro and our mission.',
         url: '/about',
       })
     }

@@ -10,13 +10,14 @@ import { RichText } from '@/components/RichText'
 import { Calendar, User, ArrowLeft, ArrowRight } from 'lucide-react'
 import { getSiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
+// Revalidate every hour (3600 seconds) - blog posts rarely change after publishing
+export const revalidate = 3600
+
 type Props = {
   params: Promise<{
     slug: string
   }>
 }
-
-export const revalidate = 60;
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config })

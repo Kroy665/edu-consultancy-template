@@ -42,6 +42,16 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
+    // Reduce memory usage in dev mode
+    cpus: 2,
+  },
+  // Reduce PostCSS worker processes
+  webpack: (config, { dev, isServer }) => {
+    if (dev && !isServer) {
+      // Limit parallel CSS processing to reduce memory/CPU usage
+      config.parallelism = 2
+    }
+    return config
   },
 }
 

@@ -423,16 +423,16 @@ Build these sections in order. Each is a separate component in `components/secti
 - Dark background (`bg-neutral-900`), white text
 
 #### 10. GoogleMap
-- Embedded Google Maps iframe for Dhupguri, West Bengal
+- Embedded Google Maps iframe for your location
 - `loading="lazy"`, `allowFullScreen`
 - Use this embed pattern:
 ```html
 <iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d...!2sNibedita+Institute+Dhupguri"
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d...!2sYour+Location"
   width="100%" height="400" style="border:0" allowFullScreen loading="lazy"
 />
 ```
-- Replace `pb=` param with actual Dhupguri coordinates embed URL
+- Replace `pb=` param with your actual location coordinates embed URL
 
 ---
 

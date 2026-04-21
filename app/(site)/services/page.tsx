@@ -4,6 +4,7 @@ import config from '@payload-config'
 import { Button } from '@/components/ui/Button'
 import { RichText } from '@/components/RichText'
 import { PageHeader } from '@/components/layout/PageHeader'
+import { REVALIDATION } from '@/lib/revalidation-config'
 import {
   Users,
   Target,
@@ -19,16 +20,17 @@ import {
 } from 'lucide-react'
 import { getPageSettings, DEFAULT_SITE_SETTINGS } from '@/lib/getSiteSettings'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageSettings = await getPageSettings('servicesPage')
 
   return {
-    title: pageSettings?.metaTitle || 'Our Services | Nibedita Institute',
+    title: pageSettings?.metaTitle || 'Our Services | EduConsult Pro',
     description: pageSettings?.metaDescription || DEFAULT_SITE_SETTINGS.pages.servicesPage.metaDescription,
   }
 }
-
-export const revalidate = 60;
 
 // Icon mapping
 const iconMap: Record<string, any> = {

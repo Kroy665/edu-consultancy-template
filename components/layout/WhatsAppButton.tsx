@@ -4,8 +4,8 @@ interface WhatsAppButtonProps {
 }
 
 export function WhatsAppButton({ whatsappNumber, defaultMessage }: WhatsAppButtonProps) {
-  const phone = whatsappNumber || process.env.NEXT_PUBLIC_PHONE || '919999999999'
-  const message = defaultMessage || process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE || 'Hi, I want to know more about admissions at Nibedita Institute.'
+  const phone = whatsappNumber || process.env.NEXT_PUBLIC_PHONE || '1234567890'
+  const message = defaultMessage || process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE || 'Hi, I want to know more about admissions.'
   const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 
   return (

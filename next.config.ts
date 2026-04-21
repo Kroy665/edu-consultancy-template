@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'nibedita.kroy.dev',
+        hostname: 'yourdomain.com',
         pathname: '/api/media/file/**',
       },
       {

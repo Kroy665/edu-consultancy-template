@@ -1,13 +1,13 @@
-# Nibedita Institute & Management Website
+# Educational Consultancy Website Template
 
-> Educational consultancy website built with Next.js 16, Payload CMS, and Tailwind CSS
+> Open-source Next.js 16 + Payload CMS template for educational consultancy businesses, admission guidance centers, and career counseling services.
 
-## 🎉 Project Status: 98% Complete - Production Ready! ✅
+## 🎉 Project Status: Production Ready! ✅
 
 **Build Status:** ✅ SUCCESSFUL (0 errors)
 **All Pages:** ✅ 23 routes built and working
 **Type Safety:** ✅ Zero `any` types - Full IntelliSense
-**Completion:** 98% - Ready to launch!
+**License:** MIT - Free to use and customize!
 
 ---
 
@@ -25,14 +25,14 @@
 3. Get connection string
 4. Update `.env.local`:
    ```
-   MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/nibedita
+   MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/educonsult
    ```
 
 **Option B: Local MongoDB**
 ```bash
 brew install mongodb-community  # Mac
 brew services start mongodb-community
-# Update .env.local: MONGODB_URI=mongodb://localhost:27017/nibedita
+# Update .env.local: MONGODB_URI=mongodb://localhost:27017/educonsult
 ```
 
 ### 2. Update Environment Variables
@@ -136,7 +136,7 @@ The website is **98% complete**. Here's what you need to do to launch:
 6. Get connection string
 7. Update `.env.local`:
    ```
-   MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/nibedita
+   MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/educonsult
    ```
 
 ### 2. Configure Environment Variables (5 minutes) ⚠️ Required
@@ -158,7 +158,7 @@ npm run dev
 ### 4. Create Admin User (2 minutes)
 1. Visit http://localhost:3000/admin
 2. Fill in the "Create First User" form:
-   - Email: `admin@nibedita.in`
+   - Email: `admin@yourdomain.com`
    - Password: (choose a strong password)
    - Name: `Admin User`
    - Role: `admin`
@@ -198,6 +198,25 @@ git push
 
 ---
 
+## ✨ Features
+
+- 🎨 **Modern Design** - Clean, professional UI with Tailwind CSS v4
+- 📱 **Fully Responsive** - Mobile-first design that works on all devices
+- 🔐 **Type-Safe** - 100% TypeScript with zero `any` types
+- 📊 **CMS Powered** - Easy content management with Payload CMS v3
+- 🎯 **SEO Optimized** - Dynamic metadata, sitemap, JSON-LD structured data
+- 📝 **Blog System** - Rich text blog with categories and tags
+- 📧 **Email Integration** - Form submissions with Resend email service
+- 🎓 **Course Management** - 8 course categories with detailed pages
+- 💬 **WhatsApp Integration** - Floating WhatsApp button on all pages
+- 🗺️ **Google Maps** - Embedded map for location display
+- 📱 **Contact Forms** - Validated enquiry forms with Zod
+- 🎭 **Testimonials** - Student testimonial management system
+- 📚 **FAQs** - Student corner with FAQs and resources
+- 🔒 **Admin Panel** - Secure admin dashboard for content management
+
+---
+
 ## 🛠 Available Scripts
 
 ```bash
@@ -213,7 +232,7 @@ npm run generate:types  # Generate Payload types
 ## 📁 Project Structure
 
 ```
-nibedita_inst/
+edu-consultancy-template/
 ├── app/
 │   ├── (site)/          # Public website
 │   │   ├── layout.tsx   # Site layout with SEO
@@ -355,8 +374,22 @@ See documentation files for help:
 
 ## 📝 License
 
-This project is proprietary and confidential.
+MIT License - Free to use and modify for your own projects!
+
+See [LICENSE](LICENSE) file for details.
 
 ---
 
-**Built with ❤️ for Nibedita Institute & Management**
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 🌟 Show Your Support
+
+If you find this template helpful, please give it a ⭐️ on GitHub!
+
+---
+
+**Built with ❤️ using Next.js, Payload CMS, and Tailwind CSS**

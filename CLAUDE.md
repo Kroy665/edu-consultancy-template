@@ -1,15 +1,15 @@
-# CLAUDE.md — Nibedita Institute & Management Website
+# CLAUDE.md — Educational Consultancy Website Template
 
-> Full project specification for Claude Code. Follow this document top-to-bottom to build the complete website autonomously. Every decision, naming convention, stack choice, and content structure is defined here.
+> Full project specification for Claude Code. This is an open-source Next.js + Payload CMS template for educational consultancy businesses. Every decision, naming convention, stack choice, and content structure is defined here.
 
 ---
 
 ## Project Overview
 
-**Client:** Nibedita Institute & Management (Educational Consultancy, Dhupguri, West Bengal)
+**Project:** Educational Consultancy Website Template (Open Source)
 **Type:** Next.js 16 website with Payload CMS admin panel
 **Goal:** Lead generation, course discovery, and student enquiry platform
-**Freelancer:** Koushik Roy (kroy.dev)
+**Use Case:** Template for educational consultancy businesses, admission guidance centers, career counseling services
 
 ---
 
@@ -35,7 +35,7 @@
 ## Repository Structure
 
 ```
-nibedita-website/
+edu-consultancy-template/
 ├── app/                          # Next.js App Router
 │   ├── (site)/                   # Public-facing site layout group
 │   │   ├── layout.tsx            # Root site layout (Navbar + Footer)
@@ -123,7 +123,7 @@ Create `.env.local` with:
 
 ```env
 # MongoDB (Payload CMS database)
-MONGODB_URI=mongodb+srv://<user>:<pass>@cluster0.xxxxx.mongodb.net/nibedita
+MONGODB_URI=mongodb+srv://<user>:<pass>@cluster0.xxxxx.mongodb.net/educonsult
 
 # Payload CMS
 PAYLOAD_SECRET=<generate-32-char-random-string>
@@ -131,11 +131,14 @@ NEXT_PUBLIC_SERVER_URL=http://localhost:3000
 
 # Resend (email)
 RESEND_API_KEY=re_xxxxxxxxxxxx
-RESEND_FROM_EMAIL=enquiry@nibedita.in
-RESEND_TO_EMAIL=director@nibedita.in
+RESEND_FROM_EMAIL=enquiry@yourdomain.com
+RESEND_TO_EMAIL=admin@yourdomain.com
 
 # Google Analytics
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+
+# WhatsApp (optional)
+NEXT_PUBLIC_PHONE=1234567890
 ```
 
 ---
@@ -213,8 +216,8 @@ Add to `app/(site)/layout.tsx` head:
 ```
 
 Seed 2 users on first run:
-- `admin@nibedita.in` / role: `admin`
-- `editor@nibedita.in` / role: `editor`
+- `admin@yourdomain.com` / role: `admin`
+- `editor@yourdomain.com` / role: `editor`
 
 ### `Courses` collection
 
@@ -251,7 +254,7 @@ Seed 2 users on first run:
     { name: 'excerpt', type: 'textarea', required: true },
     { name: 'content', type: 'richText', required: true },
     { name: 'featuredImage', type: 'upload', relationTo: 'media' },
-    { name: 'author', type: 'text', defaultValue: 'Nibedita Institute' },
+    { name: 'author', type: 'text', defaultValue: 'Editorial Team' },
     { name: 'tags', type: 'array', fields: [{ name: 'tag', type: 'text' }] },
     { name: 'publishedAt', type: 'date' },
     { name: 'status', type: 'select', options: ['draft', 'published'], defaultValue: 'draft' },
@@ -549,17 +552,17 @@ Services with descriptions:
 
 **Seed 3 blog posts:**
 1. Title: "Career After 12th: Top Options for Science Students in 2026" | Tag: career
-2. Title: "Complete Guide to B.Sc Nursing Admission in West Bengal" | Tag: nursing
+2. Title: "Complete Guide to B.Sc Nursing Admission" | Tag: nursing
 3. Title: "Engineering vs Diploma: Which is Right For You?" | Tag: engineering
 
 ---
 
 ### Contact Page (`/contact`)
 
-- **Office Address:** Nibedita Institute & Management, Dhupguri, Jalpaiguri, West Bengal — 735210
-- **Phone:** +91 XXXXX XXXXX (placeholder)
-- **Email:** info@nibedita.in (placeholder)
-- **WhatsApp Button:** opens `https://wa.me/91XXXXXXXXXX` with pre-filled message: "Hi, I want to know more about admissions at Nibedita Institute."
+- **Office Address:** Your Institute Name, Your City, Your State — Postal Code
+- **Phone:** +XX XXXXX XXXXX (placeholder)
+- **Email:** info@yourdomain.com (placeholder)
+- **WhatsApp Button:** opens `https://wa.me/XXXXXXXXXXXX` with pre-filled message: "Hi, I want to know more about admissions."
 - **Google Maps embed** (same as home)
 - **Enquiry Form** — same `EnquiryForm` component
 
@@ -650,7 +653,7 @@ export type EnquiryInput = z.infer<typeof enquirySchema>
 
 ```
 Logo (left)                    Links (center/right)          CTA (right)
-Nibedita Institute             Home  About  Courses  Services  Blog  Contact    [Enquire Now]
+Your Institute Name            Home  About  Courses  Services  Blog  Contact    [Enquire Now]
 ```
 
 - Sticky (`sticky top-0 z-40`)
@@ -674,7 +677,7 @@ Nibedita Institute             Home  About  Courses  Services  Blog  Contact    
                    Contact         Education
 
 [Social: Facebook, Instagram, YouTube (icons)]
-[Bottom bar: © 2026 Nibedita Institute | Privacy Policy | Terms | Disclaimer]
+[Bottom bar: © 2026 Your Institute Name | Privacy Policy | Terms | Disclaimer]
 ```
 
 Background: `bg-neutral-900`, white text
@@ -687,8 +690,8 @@ Add to root layout, visible on all pages:
 
 ```tsx
 // components/layout/WhatsAppButton.tsx
-const WHATSAPP_URL = `https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(
-  'Hi, I want to know more about admissions at Nibedita Institute.'
+const WHATSAPP_URL = `https://wa.me/XXXXXXXXXXXX?text=${encodeURIComponent(
+  'Hi, I want to know more about admissions.'
 )}`
 
 export function WhatsAppButton() {
@@ -717,7 +720,7 @@ export function WhatsAppButton() {
 
 ```js
 module.exports = {
-  siteUrl: 'https://nibedita.kroy.dev',
+  siteUrl: 'https://yourdomain.com',
   generateRobotsTxt: true,
   exclude: ['/admin', '/admin/*', '/api/*'],
   additionalPaths: async (config) => {
@@ -731,18 +734,18 @@ module.exports = {
 
 ```ts
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nibedita.kroy.dev'),
+  metadataBase: new URL('https://yourdomain.com'),
   title: {
-    default: 'Nibedita Institute & Management | Educational Consultancy Dhupguri',
-    template: '%s | Nibedita Institute',
+    default: 'Your Institute Name | Educational Consultancy',
+    template: '%s | Your Institute Name',
   },
-  description: 'Leading educational consultancy in Dhupguri offering admission guidance for Nursing, Engineering, Pharmacy, MBA and more. Expert career counselling for students in West Bengal.',
-  keywords: ['educational consultancy Dhupguri', 'admission guidance West Bengal', 'nursing admission', 'engineering admission', 'career counselling Jalpaiguri'],
+  description: 'Leading educational consultancy offering admission guidance for Nursing, Engineering, Pharmacy, MBA and more. Expert career counselling for students.',
+  keywords: ['educational consultancy', 'admission guidance', 'nursing admission', 'engineering admission', 'career counselling'],
   openGraph: {
     type: 'website',
-    locale: 'en_IN',
-    url: 'https://nibedita.kroy.dev',
-    siteName: 'Nibedita Institute & Management',
+    locale: 'en_US',
+    url: 'https://yourdomain.com',
+    siteName: 'Your Institute Name',
   },
 }
 ```
@@ -753,19 +756,19 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'EducationalOrganization',
-  name: 'Nibedita Institute and Management',
-  description: 'Educational consultancy offering admission guidance in Dhupguri, West Bengal',
-  url: 'https://nibedita.kroy.dev',
+  name: 'Your Institute Name',
+  description: 'Educational consultancy offering admission guidance',
+  url: 'https://yourdomain.com',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Dhupguri',
-    addressLocality: 'Jalpaiguri',
-    addressRegion: 'West Bengal',
-    postalCode: '735210',
-    addressCountry: 'IN',
+    streetAddress: 'Your Street Address',
+    addressLocality: 'Your City',
+    addressRegion: 'Your State',
+    postalCode: 'XXXXXX',
+    addressCountry: 'US',
   },
-  telephone: '+91XXXXXXXXXX',
-  email: 'info@nibedita.in',
+  telephone: '+XXXXXXXXXXXX',
+  email: 'info@yourdomain.com',
 }
 ```
 
@@ -803,7 +806,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
-      titleSuffix: '— Nibedita CMS',
+      titleSuffix: '— Admin CMS',
       favicon: '/favicon.ico',
     },
   },
@@ -867,7 +870,7 @@ export default buildConfig({
 
 Execute in this order to avoid dependency issues:
 
-1. `npx create-next-app@latest nibedita-website --typescript --tailwind --app --src-dir=false --import-alias="@/*"`
+1. `npx create-next-app@latest edu-consultancy-template --typescript --tailwind --app --src-dir=false --import-alias="@/*"`
 2. Install all dependencies listed above
 3. Configure `tailwind.config.ts` — add brand colors and font families
 4. Create `globals.css` — import Google Fonts, base Tailwind directives
@@ -915,10 +918,10 @@ After CMS is running, seed these records:
 - Category `others`: LLB (3 years), B.Lib (1 year)
 
 **Testimonials (4):**
-- Priya Sharma — B.Sc Nursing 2024 — "Nibedita Institute guided me through the entire admission process. I got into my dream college without any stress."
-- Rahul Das — B.Tech CSE 2023 — "The counsellors here are very knowledgeable. They helped me choose the best college within my budget."
-- Sunita Roy — MBA 2024 — "Excellent documentation support. Got my education loan approved within 2 weeks with their help."
-- Amit Barman — GNM Nursing 2023 — "Very professional team. They answered all my questions patiently and guided me at every step."
+- Sarah Johnson — B.Sc Nursing 2024 — "The team guided me through the entire admission process. I got into my dream college without any stress."
+- Michael Chen — B.Tech CSE 2023 — "The counsellors here are very knowledgeable. They helped me choose the best college within my budget."
+- Emily Davis — MBA 2024 — "Excellent documentation support. Got my education loan approved within 2 weeks with their help."
+- David Wilson — GNM Nursing 2023 — "Very professional team. They answered all my questions patiently and guided me at every step."
 
 ---
 

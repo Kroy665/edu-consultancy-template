@@ -40,7 +40,7 @@ export const BlogPosts: CollectionConfig = {
     {
       name: 'author',
       type: 'text',
-      defaultValue: 'Nibedita Institute',
+      defaultValue: 'Editorial Team',
     },
     {
       name: 'tags',

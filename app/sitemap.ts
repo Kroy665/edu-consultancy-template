@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://nibedita.kroy.dev'
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://yourdomain.com'
   const payload = await getPayload({ config })
 
   // Static pages

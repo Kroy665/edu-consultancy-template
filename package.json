@@ -1,7 +1,23 @@
 {
-  "name": "nibedita_inst",
-  "version": "0.1.0",
-  "private": true,
+  "name": "edu-consultancy-template",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Open-source Next.js + Payload CMS template for educational consultancy businesses",
+  "author": "Open Source Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/edu-consultancy-template"
+  },
+  "keywords": [
+    "nextjs",
+    "payload-cms",
+    "educational-consultancy",
+    "admission-guidance",
+    "template",
+    "typescript",
+    "tailwindcss"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "npm run generate:importmap && next build",

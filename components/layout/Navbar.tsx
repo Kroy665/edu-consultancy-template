@@ -24,7 +24,7 @@ interface NavbarProps {
   siteLogo?: string | Media | null
 }
 
-export function Navbar({ siteName = 'Nibedita Institute', siteLogo }: NavbarProps) {
+export function Navbar({ siteName = 'EduConsult Pro', siteLogo }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false)
